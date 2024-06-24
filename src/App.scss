@@ -99,7 +99,6 @@ h6 {
    flex-direction: column;
    overflow: hidden;
    position: relative;
-   background: #000;
    @supports (overflow: clip) {
       overflow: clip;
    }
@@ -160,4 +159,10 @@ h6 {
 .error {
    color: red;
    margin-top: 0.5rem;
+}
+
+.lock {
+   overflow: hidden;
+   touch-action: none;
+   overscroll-behavior: none;
 }

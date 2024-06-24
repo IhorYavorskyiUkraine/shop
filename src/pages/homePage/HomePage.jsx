@@ -1,4 +1,5 @@
 import Popup from "../../components/popup/Popup";
+import Header from "../../components/header/Header";
 
 import styles from "./HomePage.module.scss";
 
@@ -6,7 +7,7 @@ function HomePage() {
    return (
       <div className="wrapper">
          <Popup />
-         {/* <Header/> */}
+         <Header />
       </div>
    );
 }

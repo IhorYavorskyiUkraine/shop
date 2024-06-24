@@ -1,0 +1,41 @@
+.burger {
+   display: none;
+   z-index: 1010;
+   @media (max-width: 48rem) {
+      display: block;
+   }
+}
+
+.burgerIcon {
+   div {
+   }
+}
+
+.overlay {
+   display: flex;
+   flex-direction: column;
+   padding: 1.25rem;
+   overflow: auto;
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background: var(--burger-bg-color);
+   transition: all 0.3s;
+   z-index: 1000;
+}
+
+.catalog {
+}
+
+.content {
+}
+
+.burgerClose {
+}
+
+.hidden {
+   left: 100%;
+   transition: all 0.3s;
+}
