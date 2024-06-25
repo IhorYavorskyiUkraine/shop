@@ -4,27 +4,31 @@ import { Link } from "react-router-dom";
 import styles from "./BurgerMenu.module.scss";
 
 const BurgerMenu = () => {
-   const [lock, setLock] = useState(false);
+   const [isActive, setIsActive] = useState(false);
 
    const handleLock = () => {
-      setLock(!lock);
-      lock
+      setIsActive(!isActive);
+      isActive
          ? document.body.classList.remove("lock")
          : document.body.classList.add("lock");
    };
 
    return (
-      <div className={styles.burger}>
-         <div className={styles.burgerIcon} onClick={handleLock}>
-            <div className={styles.line1}></div>
-            <div className={styles.line2}></div>
-            <div className={styles.line3}></div>
-         </div>
-         <div className={lock ? styles.overlay : styles.hidden}>
+      <div className={`${styles.burger} ${isActive ? styles.active : ""}`}>
+         <button
+            onClick={handleLock}
+            type="button"
+            className={styles.burgerIcon}
+         >
+            <span></span>
+         </button>
+         <div
+            className={`${styles.overlay} ${
+               isActive ? styles.overlayActive : ""
+            }`}
+         >
             <div className={styles.catalog}>
-               <Link to="/">
-                  <span>Tasty</span> Health
-               </Link>
+               <h3>Catalog</h3>
                <button
                   onClick={handleLock}
                   className={styles.burgerClose}

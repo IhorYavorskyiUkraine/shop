@@ -1,13 +1,67 @@
 .burger {
    display: none;
-   z-index: 1010;
+   z-index: 1000;
+   height: 14px;
    @media (max-width: 48rem) {
       display: block;
    }
 }
 
 .burgerIcon {
-   div {
+   @media (max-width: 48rem) {
+      position: relative;
+      width: 1.125rem;
+      height: 100%;
+      z-index: 5;
+      @media (any-hover: none) {
+         cursor: default;
+      }
+      span,
+      &::before,
+      &::after {
+         content: "";
+         transition: all 0.3s ease 0s;
+         right: 0;
+         position: absolute;
+         width: 100%;
+         height: 0.125rem;
+         background-color: #000;
+      }
+      &::before {
+         top: 0;
+      }
+      &::after {
+         bottom: 0;
+      }
+      span {
+         top: calc(50% - 0.0625rem);
+      }
+   }
+}
+
+.burgerClose {
+   position: relative;
+   width: 14px;
+   height: 14px;
+   transition: opacity 0.3s;
+   cursor: pointer;
+   &:hover {
+      opacity: 0.8;
+   }
+   &::after,
+   &::before {
+      content: "";
+      position: absolute;
+      display: block;
+      width: 14px;
+      height: 2px;
+      background: #000;
+   }
+   &::before {
+      transform: rotate(45deg);
+   }
+   &::after {
+      transform: rotate(-45deg);
    }
 }
 
@@ -18,24 +72,36 @@
    overflow: auto;
    position: fixed;
    top: 0;
-   left: 0;
+   right: 100%;
    width: 100%;
    height: 100%;
-   background: var(--burger-bg-color);
+   background: #fff;
    transition: all 0.3s;
    z-index: 1000;
 }
 
+.overlayActive {
+   right: 0;
+   transition: all 0.3s;
+}
+
 .catalog {
+   display: flex;
+   justify-content: space-between;
+   h3 {
+      font-family: "IntegralCF-Bold";
+      font-size: 1.5625rem;
+      text-transform: uppercase;
+      font-weight: 700;
+   }
+   margin-bottom: 2rem;
 }
 
 .content {
-}
-
-.burgerClose {
-}
-
-.hidden {
-   left: 100%;
-   transition: all 0.3s;
+   display: inline-flex;
+   flex-direction: column;
+   gap: 2rem;
+   span {
+      font-size: 1.5rem;
+   }
 }

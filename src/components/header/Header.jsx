@@ -3,8 +3,11 @@ import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { motion } from "framer-motion";
 
+import BurgerMenu from "./components/burgerMenu/BurgerMenu";
+import SearchInput from "./components/searchInput/SearchInput";
+
 import arrow from "/images/header/arrow.svg";
-import search from "/images/header/search.svg";
+import searchInput from "/images/header/searchInput.svg";
 import cart from "/images/header/cart.svg";
 import user from "/images/header/user.svg";
 
@@ -38,6 +41,7 @@ function Header() {
          <header className={styles.header}>
             <div className="container">
                <div className={styles.wrapper}>
+                  <BurgerMenu />
                   <Link className={styles.logo} to="/">
                      shop.co
                   </Link>
@@ -84,8 +88,8 @@ function Header() {
                         </li>
                      </ul>
                   </nav>
-                  <form>
-                     <img src={search} alt="search" />
+                  <form className={styles.form}>
+                     <img src={searchInput} alt="searchInput" />
                      <input
                         value={input}
                         onChange={e => setInput(e.target.value)}
@@ -95,12 +99,15 @@ function Header() {
                      {/* <ul className={styles.searchList}>{input}</ul>
 							итемс есть? показать */}
                   </form>
-                  <Link style={{ marginRight: "5px" }} to="/cart">
-                     <img src={cart} alt="cart" />
-                  </Link>
-                  <Link to="/user">
-                     <img src={user} alt="user" />
-                  </Link>
+                  <div className={styles.icons}>
+                     <SearchInput />
+                     <Link to="/cart">
+                        <img src={cart} alt="cart" />
+                     </Link>
+                     <Link to="/user">
+                        <img src={user} alt="user" />
+                     </Link>
+                  </div>
                </div>
             </div>
          </header>
