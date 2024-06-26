@@ -74,6 +74,7 @@
    overflow: visible;
    gap: 1.5rem;
    li {
+      position: relative;
       color: #000;
       transition: color 0.3s;
       &:hover {
@@ -99,6 +100,7 @@
    width: 70%;
    display: flex;
    left: 50%;
+   top: 100%;
    transform: translate(-50%, 0);
    flex-direction: column;
    z-index: 1000;
@@ -109,9 +111,6 @@
          color: lighten(#000, 40%);
       }
    }
-}
-
-.icon {
 }
 
 .icons {

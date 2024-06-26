@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
-import { createPortal } from "react-dom";
-import { motion } from "framer-motion";
 
 import BurgerMenu from "./components/burgerMenu/BurgerMenu";
 import SearchInput from "./components/searchInput/SearchInput";
@@ -12,10 +10,6 @@ import cart from "/images/header/cart.svg";
 import user from "/images/header/user.svg";
 
 import styles from "./Header.module.scss";
-
-function Dropdown({ children, open }) {
-   return open && createPortal(<div>{children}</div>, document.body);
-}
 
 function Header() {
    const [dropdown, setDropdown] = useState(false);
@@ -60,22 +54,6 @@ function Header() {
                                  alt="arrow"
                               />
                            </button>
-                           <Dropdown open={dropdown}>
-                              <ul ref={menuRef} className={styles.dropdown}>
-                                 <li>
-                                    <Link to="/shop">All</Link>
-                                 </li>
-                                 <li>
-                                    <Link to="/onSale">On Sale</Link>
-                                 </li>
-                                 <li>
-                                    <Link to="/newArrivals">New Arrivals</Link>
-                                 </li>
-                                 <li>
-                                    <Link to="/brands">Brands</Link>
-                                 </li>
-                              </ul>
-                           </Dropdown>
                         </li>
                         <li>
                            <Link to="/onSale">On Sale</Link>
@@ -110,6 +88,22 @@ function Header() {
                   </div>
                </div>
             </div>
+            {dropdown && (
+               <ul ref={menuRef} className={styles.dropdown}>
+                  <li>
+                     <Link to="/shop">All</Link>
+                  </li>
+                  <li>
+                     <Link to="/onSale">On Sale</Link>
+                  </li>
+                  <li>
+                     <Link to="/newArrivals">New Arrivals</Link>
+                  </li>
+                  <li>
+                     <Link to="/brands">Brands</Link>
+                  </li>
+               </ul>
+            )}
          </header>
          {dropdown && <div className={styles.overlay}></div>}
       </>
