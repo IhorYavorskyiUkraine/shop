@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import styles from "./Popup.module.scss";
 
-function Popup() {
+export function Popup() {
    const [showPopup, setShowPopup] = useState(true);
 
    const closePopup = () => {
@@ -30,5 +30,3 @@ function Popup() {
       </div>
    );
 }
-
-export default Popup;

@@ -1,6 +1,6 @@
 import styles from "./Info.module.scss";
 
-function Info({ number, info }) {
+export function Info({ number, info }) {
    return (
       <div>
          <h3>{number}+</h3>
@@ -8,5 +8,3 @@ function Info({ number, info }) {
       </div>
    );
 }
-
-export default Info;

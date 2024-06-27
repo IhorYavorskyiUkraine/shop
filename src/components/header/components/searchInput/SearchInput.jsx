@@ -5,7 +5,7 @@ import styles from "./SearchInput.module.scss";
 
 import searchBtn from "/images/header/searchBtn.svg";
 
-function SearchInput() {
+export function SearchInput() {
    const [isActive, setIsActive] = useState(false);
 
    const handleLock = () => {
@@ -39,5 +39,3 @@ function SearchInput() {
       </div>
    );
 }
-
-export default SearchInput;

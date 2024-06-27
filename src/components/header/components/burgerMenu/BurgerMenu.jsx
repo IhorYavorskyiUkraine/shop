@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import styles from "./BurgerMenu.module.scss";
 
-const BurgerMenu = () => {
+export function BurgerMenu() {
    const [isActive, setIsActive] = useState(false);
 
    const handleLock = () => {
@@ -51,6 +51,4 @@ const BurgerMenu = () => {
          </div>
       </div>
    );
-};
-
-export default BurgerMenu;
+}

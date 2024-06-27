@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 
-import BurgerMenu from "./components/burgerMenu/BurgerMenu";
-import SearchInput from "./components/searchInput/SearchInput";
+import { BurgerMenu } from "./components/burgerMenu/BurgerMenu";
+import { SearchInput } from "./components/searchInput/SearchInput";
 
 import arrow from "/images/header/arrow.svg";
 import searchInput from "/images/header/searchInput.svg";
@@ -11,7 +11,7 @@ import user from "/images/header/user.svg";
 
 import styles from "./Header.module.scss";
 
-function Header() {
+export function Header() {
    const [dropdown, setDropdown] = useState(false);
    const [input, setInput] = useState("");
 
@@ -109,5 +109,3 @@ function Header() {
       </>
    );
 }
-
-export default Header;
