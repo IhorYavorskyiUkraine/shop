@@ -26,7 +26,7 @@ export function HeroSection() {
                      <Info number="30,000" info="Happy Customers" />
                   </div>
                </div>
-               <div>
+               <div className={styles.bg}>
                   <img src={bg} alt="bg" />
                </div>
             </div>

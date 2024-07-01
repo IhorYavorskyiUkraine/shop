@@ -1,0 +1,49 @@
+.brands {
+   background: #000;
+   .wrapper {
+      max-width: 79.375rem;
+      margin: 0 auto;
+      display: flex;
+      padding: 2.875rem 0rem;
+      flex-wrap: wrap;
+      column-gap: 6.625rem;
+      row-gap: 3rem;
+      justify-content: center;
+      @media (max-width: 48rem) {
+         column-gap: 2.125rem;
+      }
+      @media (max-width: 30rem) {
+         padding: 2.375rem 0rem;
+      }
+   }
+
+   .versace {
+      @media (max-width: 30rem) {
+         width: 7.25rem;
+      }
+   }
+
+   .zara {
+      @media (max-width: 30rem) {
+         width: 4rem;
+      }
+   }
+
+   .gucci {
+      @media (max-width: 30rem) {
+         width: 6.75rem;
+      }
+   }
+
+   .prada {
+      @media (max-width: 30rem) {
+         width: 8rem;
+      }
+   }
+
+   .calvin {
+      @media (max-width: 30rem) {
+         width: 8.375rem;
+      }
+   }
+}
