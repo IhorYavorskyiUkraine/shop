@@ -1,0 +1,25 @@
+.topSelling {
+   padding: 4.5rem 0rem;
+   h2 {
+      text-align: center;
+      margin-bottom: 3.375rem;
+   }
+   .items {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, 18.375rem);
+      gap: 1.25rem;
+      justify-content: center;
+      margin-bottom: 2.25rem;
+   }
+   button {
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      background: #fff;
+      transition: background 0.3s;
+      &:hover {
+         background: lighten(#000, 95%);
+      }
+      &:disabled {
+         background: lighten(#000, 95%);
+      }
+   }
+}

@@ -23,7 +23,7 @@ export const fetchTopSelling = createAsyncThunk(
    async (_, { rejectWithValue }) => {
       try {
          const response = await axios.get(
-            "https://666a97c97013419182cff3dd.mockapi.io/topSellings/items",
+            "https://666a9be47013419182d00996.mockapi.io/topSelling/items",
          );
 
          if (response.status !== 200) throw new Error("Error!");

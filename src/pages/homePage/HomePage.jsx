@@ -3,6 +3,8 @@ import { Header } from "../../components/header/Header";
 import { HeroSection } from "../../modules/index";
 import { BrandsSection } from "../../modules/index";
 import { NewArrivals } from "../../modules/sections/newArrivals/NewArrivals";
+import { TopSelling } from "../../modules/index";
+import { BrowseStyle } from "../../modules/index";
 
 import styles from "./HomePage.module.scss";
 
@@ -14,6 +16,8 @@ function HomePage() {
          <HeroSection />
          <BrandsSection />
          <NewArrivals />
+         <TopSelling />
+         <BrowseStyle />
       </div>
    );
 }

@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 
 import styles from "./Card.module.scss";
 
-export function Card({ image, name, price, rating }) {
+export function Card({ image, name, price, rating, id }) {
    return (
-      <Link to="">
+      <Link to={`/${id}`}>
          <div className={styles.wrapper}>
             <div className={styles.image}>
                <img src={image} alt="card image" />
