@@ -1,13 +1,33 @@
 import axios from "axios";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-export const fetchItems = createAsyncThunk(
+export const fetchNewArrives = createAsyncThunk(
    "globalSlice/fetchItems",
-   async (_, rejectWithValue) => {
+   async (_, { rejectWithValue }) => {
       try {
          const response = await axios.get(
             "https://666a97c97013419182cff3dd.mockapi.io/newArrivals/items",
          );
+
+         if (response.status !== 200) throw new Error("Error!");
+
+         return response.data;
+      } catch (error) {
+         return rejectWithValue(error.message);
+      }
+   },
+);
+
+export const fetchTopSelling = createAsyncThunk(
+   "globalSlice/fetchTopSelling",
+   async (_, { rejectWithValue }) => {
+      try {
+         const response = await axios.get(
+            "https://666a97c97013419182cff3dd.mockapi.io/topSellings/items",
+         );
+
+         if (response.status !== 200) throw new Error("Error!");
+
          return response.data;
       } catch (error) {
          return rejectWithValue(error.message);
@@ -23,6 +43,9 @@ export const fetchAddToCart = createAsyncThunk(
             "https://666a97c97013419182cff3dd.mockapi.io/newArrivals/cart",
             obj,
          );
+
+         if (response.status == !200) throw new Error("Error!");
+
          dispatch(addToCart(obj));
       } catch (error) {
          return rejectWithValue(error.message);
@@ -32,11 +55,14 @@ export const fetchAddToCart = createAsyncThunk(
 
 export const fetchRemoveToCart = createAsyncThunk(
    "globalSlice/fetchAddToCart",
-   async (id, rejectWithValue) => {
+   async (id, { rejectWithValue }) => {
       try {
          const response = await axios.get(
             `https://666a97c97013419182cff3dd.mockapi.io/newArrivals/cart/${id}`,
          );
+
+         if (response.status == !200) throw new Error("Error!");
+
          return response.data;
       } catch (error) {
          return rejectWithValue(error.message);
@@ -48,6 +74,7 @@ const slice = createSlice({
    name: "globalSlice",
    initialState: {
       newArrivals: [],
+      topSelling: [],
       status: "loading",
       error: null,
    },
@@ -56,21 +83,33 @@ const slice = createSlice({
       removeFromCart(state, action) {},
    },
    extraReducers: builder => {
-      builder.addCase(fetchItems.pending, state => {
+      builder.addCase(fetchNewArrives.pending, state => {
          state.status = "loading";
          state.error = null;
       });
-      builder.addCase(fetchItems.fulfilled, (state, action) => {
+      builder.addCase(fetchNewArrives.fulfilled, (state, action) => {
          state.status = "success";
          state.newArrivals = action.payload;
       });
-      builder.addCase(fetchItems.rejected, state => {
+      builder.addCase(fetchNewArrives.rejected, (state, action) => {
+         state.status = "rejected";
+         state.error = action.payload;
+      });
+      builder.addCase(fetchTopSelling.pending, state => {
+         state.status = "loading";
+         state.error = null;
+      });
+      builder.addCase(fetchTopSelling.fulfilled, (state, action) => {
+         state.status = "success";
+         state.topSelling = action.payload;
+      });
+      builder.addCase(fetchTopSelling.rejected, (state, action) => {
          state.status = "rejected";
          state.error = action.payload;
       });
    },
 });
 
-export const { addToCart } = slice.actions;
+export const { addToCart, limitPlus } = slice.actions;
 
 export default slice.reducer;

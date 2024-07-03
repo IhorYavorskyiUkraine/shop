@@ -1,26 +1,54 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchItems } from "../../../store/slice";
+import { fetchNewArrives } from "../../../store/slice";
+
+import { Card } from "./components/Card";
+import { Skeleton } from "../../../components/skeleton/Skeleton";
+import { Button } from "../../../ui/button/Button";
 
 import styles from "./NewArrivals.module.scss";
 
 export function NewArrivals() {
-   const { newArrivals, status } = useSelector(state => state.globalSlice);
+   const [visibleData, setVisibleData] = useState(4);
+
+   const { newArrivals, status, error } = useSelector(
+      state => state.globalSlice,
+   );
+
    const dispatch = useDispatch();
 
+   const loadMore = () => {
+      setVisibleData(prev => prev + 4);
+   };
+
    useEffect(() => {
-      dispatch(fetchItems());
-   }, []);
+      dispatch(fetchNewArrives());
+   }, [dispatch]);
 
    return (
-      <section>
-         {status === "loading" ? (
-            <div>Loading...</div>
-         ) : (
-            newArrivals.map(item => {
-               return <div>{item.name}</div>;
-            })
-         )}
+      <section className={styles.newArrivals}>
+         <div className="container">
+            <h2 className="title">New Arrivals</h2>
+            <div className={styles.items}>
+               {error && <h2>{error}</h2>}
+               {status === "loading" ? (
+                  <Skeleton length={4} />
+               ) : (
+                  newArrivals
+                     .slice(0, visibleData)
+                     .map(item => <Card key={item.id} {...item} />)
+               )}
+            </div>
+            {visibleData < newArrivals.length && (
+               <div style={{ display: "flex", justifyContent: "center" }}>
+                  <Button
+                     disabled={status === "loading"}
+                     onClick={loadMore}
+                     text="View All"
+                  />
+               </div>
+            )}
+         </div>
       </section>
    );
 }

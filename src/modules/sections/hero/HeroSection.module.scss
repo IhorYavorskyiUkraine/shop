@@ -36,6 +36,7 @@
       display: grid;
       grid-template-columns: minmax(30rem, 37.5rem) auto;
       gap: 3.375rem;
+
       @media (max-width: 48rem) {
          grid-template-columns: 1fr;
          grid-template-rows: 1fr 28rem;
@@ -74,7 +75,7 @@
       .content {
          padding-top: 6.25rem;
          @media (max-width: 80rem) {
-            padding-top: 2.5rem;
+            padding: 2.5rem 0rem;
          }
       }
 
