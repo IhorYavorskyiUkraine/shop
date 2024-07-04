@@ -2,16 +2,13 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import "./App.scss";
 
-import {
-   HomePage,
-   // NotFoundPage,
-} from "./pages";
+import { HomePage, NotFoundPage } from "./pages";
 
 const router = createBrowserRouter([
    {
       path: "/",
       element: <HomePage />,
-      // errorElement: <NotFoundPage />,
+      errorElement: <NotFoundPage />,
    },
    //    {
    //       path: "/shop",
@@ -19,7 +16,7 @@ const router = createBrowserRouter([
    //       errorElement: <NotFoundPage />,
    //    },
    //    {
-   //       path: "/onSale",
+   //       path: "/on_sale",
    //       element: <OnSalePage />,
    //       errorElement: <NotFoundPage />,
    //    },
@@ -29,7 +26,7 @@ const router = createBrowserRouter([
    //       errorElement: <NotFoundPage />,
    //    },
    //    {
-   //       path: "/newArrivals",
+   //       path: "/new_arrivals",
    //       element: <NewArrivalsPage />,
    //       errorElement: <NotFoundPage />,
    //    },

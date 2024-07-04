@@ -1,5 +1,6 @@
-export { HeroSection } from "./sections/hero/HeroSection";
-export { BrandsSection } from "./sections/brands/BrandsSection";
-export { NewArrivals } from "./sections/newArrivals/NewArrivals";
-export { TopSelling } from "./sections/topSelling/TopSelling";
-export { BrowseStyle } from "./sections/browseStyle/BrowseStyle";
+export { HeroSection } from "./sections/hero";
+export { BrandsSection } from "./sections/brands";
+export { NewArrivals } from "./sections/newArrivals";
+export { TopSelling } from "./sections/topSelling";
+export { BrowseStyle } from "./sections/browseStyle";
+export { HappyCustomers } from "./sections/happyCustomers";

@@ -1,0 +1,42 @@
+.happyCustomers {
+   margin-bottom: 5rem;
+   h2 {
+      margin-bottom: 2.5rem;
+   }
+
+   .wrapper {
+      display: flex;
+      justify-content: space-between;
+   }
+
+   .buttons {
+      display: flex;
+      gap: 1.25rem;
+   }
+
+   .slider {
+      max-width: 100%;
+      position: relative;
+      &::before,
+      &::after {
+         content: "";
+         position: absolute;
+         height: 100%;
+         width: 6.25rem;
+         filter: blur(10px);
+         opacity: 0.8;
+         background: #fff;
+         z-index: 2;
+         top: 0;
+         @media (max-width: 48rem) {
+            display: none;
+         }
+      }
+      &::before {
+         left: 0;
+      }
+      &::after {
+         right: 0;
+      }
+   }
+}

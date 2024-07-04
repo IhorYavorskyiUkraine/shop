@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 
-import { BurgerMenu } from "./components/burgerMenu/BurgerMenu";
-import { SearchInput } from "./components/searchInput/SearchInput";
+import { BurgerMenu } from "./components/burgerMenu";
+import { SearchInput } from "./components/searchInput";
 
 import arrow from "/images/header/arrow.svg";
 import searchInput from "/images/header/searchInput.svg";
@@ -56,10 +56,10 @@ export function Header() {
                            </button>
                         </li>
                         <li>
-                           <Link to="/onSale">On Sale</Link>
+                           <Link to="/on_sale">On Sale</Link>
                         </li>
                         <li>
-                           <Link to="/newArrivals">New Arrivals</Link>
+                           <Link to="/new-arrivals">New Arrivals</Link>
                         </li>
                         <li>
                            <Link to="/brands">Brands</Link>

@@ -1,12 +1,12 @@
-import { Popup } from "../../components/popup/Popup";
+import { Popup } from "../../components/popup";
 import { Header } from "../../components/header/Header";
-import { HeroSection } from "../../modules/index";
-import { BrandsSection } from "../../modules/index";
-import { NewArrivals } from "../../modules/sections/newArrivals/NewArrivals";
-import { TopSelling } from "../../modules/index";
-import { BrowseStyle } from "../../modules/index";
-
-import styles from "./HomePage.module.scss";
+import { HeroSection } from "../../modules/sections/hero";
+import { BrandsSection } from "../../modules/sections/brands";
+import { NewArrivals } from "../../modules/sections/newArrivals";
+import { TopSelling } from "../../modules/sections/topSelling";
+import { BrowseStyle } from "../../modules/sections/browseStyle";
+import { HappyCustomers } from "../../modules/sections/happyCustomers";
+import { Footer } from "../../components/footer/Footer";
 
 function HomePage() {
    return (
@@ -18,6 +18,8 @@ function HomePage() {
          <NewArrivals />
          <TopSelling />
          <BrowseStyle />
+         <HappyCustomers />
+         <Footer />
       </div>
    );
 }

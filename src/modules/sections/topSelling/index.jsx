@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchNewArrives } from "../../../store/slice";
+import { fetchTopSelling } from "../../../store/slice";
 
-import { Card } from "../../../components/card/Card";
-import { Skeleton } from "../../../components/skeleton/Skeleton";
+import { Card } from "../../../components/card";
+import { Skeleton } from "../../../components/skeleton";
 import { Button } from "../../../ui/button/Button";
 
-import styles from "./NewArrivals.module.scss";
+import styles from "./TopSelling.module.scss";
 
-export function NewArrivals() {
+export function TopSelling() {
    const [visibleData, setVisibleData] = useState(4);
 
-   const { newArrivals, status, error } = useSelector(
+   const { topSelling, status, error } = useSelector(
       state => state.globalSlice,
    );
 
@@ -22,11 +22,11 @@ export function NewArrivals() {
    };
 
    useEffect(() => {
-      dispatch(fetchNewArrives());
+      dispatch(fetchTopSelling());
    }, [dispatch]);
 
    return (
-      <section className={styles.newArrivals}>
+      <section className={styles.topSelling}>
          <div className="container">
             <h2 className="title">New Arrivals</h2>
             <div className={styles.items}>
@@ -34,12 +34,12 @@ export function NewArrivals() {
                {status === "loading" ? (
                   <Skeleton length={4} />
                ) : (
-                  newArrivals
+                  topSelling
                      .slice(0, visibleData)
                      .map(item => <Card key={item.id} {...item} />)
                )}
             </div>
-            {visibleData < newArrivals.length && (
+            {visibleData < topSelling.length && (
                <div style={{ display: "flex", justifyContent: "center" }}>
                   <Button
                      disabled={status === "loading"}

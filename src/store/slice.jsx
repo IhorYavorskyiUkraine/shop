@@ -35,33 +35,15 @@ export const fetchTopSelling = createAsyncThunk(
    },
 );
 
-export const fetchAddToCart = createAsyncThunk(
-   "globalSlice/fetchAddToCart",
-   async (obj, { rejectWithValue, dispatch }) => {
-      try {
-         const response = await axios.post(
-            "https://666a97c97013419182cff3dd.mockapi.io/newArrivals/cart",
-            obj,
-         );
-
-         if (response.status == !200) throw new Error("Error!");
-
-         dispatch(addToCart(obj));
-      } catch (error) {
-         return rejectWithValue(error.message);
-      }
-   },
-);
-
-export const fetchRemoveToCart = createAsyncThunk(
-   "globalSlice/fetchAddToCart",
-   async (id, { rejectWithValue }) => {
+export const fetchReviews = createAsyncThunk(
+   "globalSlice/fetchReviews",
+   async (_, { rejectWithValue }) => {
       try {
          const response = await axios.get(
-            `https://666a97c97013419182cff3dd.mockapi.io/newArrivals/cart/${id}`,
+            "https://66867ae883c983911b026d2f.mockapi.io/customer_reviews/reviews",
          );
 
-         if (response.status == !200) throw new Error("Error!");
+         if (response.status !== 200) throw new Error("Error!");
 
          return response.data;
       } catch (error) {
@@ -70,11 +52,47 @@ export const fetchRemoveToCart = createAsyncThunk(
    },
 );
 
+// export const fetchAddToCart = createAsyncThunk(
+//    "globalSlice/fetchAddToCart",
+//    async (obj, { rejectWithValue, dispatch }) => {
+//       try {
+//          const response = await axios.post(
+//             "https://666a97c97013419182cff3dd.mockapi.io/newArrivals/cart",
+//             obj,
+//          );
+
+//          if (response.status == !200) throw new Error("Error!");
+
+//          dispatch(addToCart(obj));
+//       } catch (error) {
+//          return rejectWithValue(error.message);
+//       }
+//    },
+// );
+
+// export const fetchRemoveToCart = createAsyncThunk(
+//    "globalSlice/fetchAddToCart",
+//    async (id, { rejectWithValue }) => {
+//       try {
+//          const response = await axios.get(
+//             `https://666a97c97013419182cff3dd.mockapi.io/newArrivals/cart/${id}`,
+//          );
+
+//          if (response.status == !200) throw new Error("Error!");
+
+//          return response.data;
+//       } catch (error) {
+//          return rejectWithValue(error.message);
+//       }
+//    },
+// );
+
 const slice = createSlice({
    name: "globalSlice",
    initialState: {
       newArrivals: [],
       topSelling: [],
+      reviews: [],
       status: "loading",
       error: null,
    },
@@ -104,6 +122,18 @@ const slice = createSlice({
          state.topSelling = action.payload;
       });
       builder.addCase(fetchTopSelling.rejected, (state, action) => {
+         state.status = "rejected";
+         state.error = action.payload;
+      });
+      builder.addCase(fetchReviews.pending, state => {
+         state.status = "loading";
+         state.error = null;
+      });
+      builder.addCase(fetchReviews.fulfilled, (state, action) => {
+         state.status = "success";
+         state.reviews = action.payload;
+      });
+      builder.addCase(fetchReviews.rejected, (state, action) => {
          state.status = "rejected";
          state.error = action.payload;
       });
