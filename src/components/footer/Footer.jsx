@@ -1,5 +1,9 @@
 import { Link } from "react-router-dom";
 
+import { Button } from "../../ui/button/Button";
+
+import email from "/images/footer/email.svg";
+
 import styles from "./Footer.module.scss";
 
 export function Footer() {
@@ -39,11 +43,11 @@ export function Footer() {
                link: "/features",
             },
             {
-               name: "About",
+               name: "Works",
                link: "/works",
             },
             {
-               name: "About",
+               name: "Career",
                link: "/career",
             },
          ],
@@ -113,27 +117,89 @@ export function Footer() {
       },
    ];
 
+   const payments = [
+      { name: "Visa", image: "/images/footer/payments/1.svg" },
+      {
+         name: "MasterCard",
+         image: "/images/footer/payments/2.svg",
+      },
+      {
+         name: "PayPal",
+         image: "/images/footer/payments/3.svg",
+      },
+      {
+         name: "Apple Pay",
+         image: "/images/footer/payments/4.svg",
+      },
+      {
+         name: "Google Pay",
+         image: "/images/footer/payments/5.svg",
+      },
+   ];
+
    return (
-      <footer>
-         <div className={styles.wrapper}>
-            <form className={styles.form}>
-               <h2 className="title"></h2>
-               <input type="text" />
-               <button></button>
-            </form>
-            <div className={styles.footerBody}>
-               <div>
-                  <Link to="/">Shop.Co</Link>
-                  <p>
-                     We have clothes that suits your style and which you’re
-                     proud to wear. From women to men.
+      <footer data-aos="fade-right" data-aos-duration="300">
+         <div className="container">
+            <div className={styles.wrapper}>
+               <div className={styles.footerTop}>
+                  <h2 className="title">
+                     Stay Upto Date About Our Lasted Offers
+                  </h2>
+                  <form action="">
+                     <div className={styles.input}>
+                        <img src={email} alt="email" />
+                        <input
+                           placeholder="Enter your email address"
+                           type="text"
+                        />
+                     </div>
+                     <Button text="Subscribe to Newsletter" type="submit" />
+                  </form>
+               </div>
+               <div className={styles.footerBody}>
+                  <div className={styles.info}>
+                     <Link className={styles.logo} to="/">
+                        Shop.Co
+                     </Link>
+                     <p className="text">
+                        We have clothes that suits your style and which you’re
+                        proud to wear. From women to men.
+                     </p>
+                     <ul className={styles.socials}>
+                        {socials.map(social => (
+                           <li key={social.name}>
+                              <Link to={social.link}>
+                                 <img src={social.image} alt="social.image" />
+                              </Link>
+                           </li>
+                        ))}
+                     </ul>
+                  </div>
+                  <div className={styles.menuList}>
+                     {menu.map(item => (
+                        <li className={styles.menu} key={item.title}>
+                           <h4>{item.title}</h4>
+                           <ul>
+                              {item.name.map(name => (
+                                 <li className={styles.li} key={name.name}>
+                                    <Link className="text" to={name.link}>
+                                       {name.name}
+                                    </Link>
+                                 </li>
+                              ))}
+                           </ul>
+                        </li>
+                     ))}
+                  </div>
+               </div>
+               <div className={styles.rights}>
+                  <p className="text">
+                     Shop.co © 2000-2023, All Rights Reserved
                   </p>
-                  <ul>
-                     {socials.map(social => (
-                        <li key={social.name}>
-                           <Link to={social.link}>
-                              <img src={social.image} alt="social.image" />
-                           </Link>
+                  <ul className={styles.payments}>
+                     {payments.map(payment => (
+                        <li key={payment.name}>
+                           <img src={payment.image} alt="payment.image" />
                         </li>
                      ))}
                   </ul>

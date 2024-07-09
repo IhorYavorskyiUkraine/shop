@@ -1,5 +1,8 @@
+import { useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import aos from "aos";
 
+import "aos/dist/aos.css";
 import "./App.scss";
 
 import { HomePage, NotFoundPage } from "./pages";
@@ -49,6 +52,9 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+   useEffect(() => {
+      aos.init();
+   }, []);
    return <RouterProvider router={router} />;
 }
 

@@ -5,6 +5,7 @@ import { fetchTopSelling } from "../../../store/slice";
 import { Card } from "../../../components/card";
 import { Skeleton } from "../../../components/skeleton";
 import { Button } from "../../../ui/button/Button";
+import { SliderCard } from "../../../components/sliderCard";
 
 import styles from "./TopSelling.module.scss";
 
@@ -26,21 +27,33 @@ export function TopSelling() {
    }, [dispatch]);
 
    return (
-      <section className={styles.topSelling}>
+      <section
+         data-aos="fade-up"
+         data-aos-duration="500"
+         className={styles.topSelling}
+      >
          <div className="container">
-            <h2 className="title">New Arrivals</h2>
+            <h2 className="title">Top Selling</h2>
             <div className={styles.items}>
                {error && <h2>{error}</h2>}
                {status === "loading" ? (
                   <Skeleton length={4} />
+               ) : window.innerWidth <= 768 ? (
+                  <SliderCard arrayToRender={topSelling} />
                ) : (
                   topSelling
                      .slice(0, visibleData)
-                     .map(item => <Card key={item.id} {...item} />)
+                     .map((item, i) => (
+                        <Card
+                           key={item.id}
+                           duration={300 + i * 100}
+                           {...item}
+                        />
+                     ))
                )}
             </div>
             {visibleData < topSelling.length && (
-               <div style={{ display: "flex", justifyContent: "center" }}>
+               <div className="d-flex justify-center">
                   <Button
                      disabled={status === "loading"}
                      onClick={loadMore}

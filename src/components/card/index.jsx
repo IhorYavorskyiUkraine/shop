@@ -3,9 +3,14 @@ import { Link } from "react-router-dom";
 
 import styles from "./Card.module.scss";
 
-export function Card({ image, name, price, rating, id }) {
+export function Card({ image, name, price, rating, id, duration }) {
    return (
-      <Link to={`/${id}`}>
+      <Link
+         data-aos="fade-up"
+         data-aos-duration={duration}
+         className={styles.link}
+         to={`/${id}`}
+      >
          <div className={styles.wrapper}>
             <div className={styles.image}>
                <img src={image} alt="card image" />

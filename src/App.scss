@@ -24,6 +24,7 @@
    font-style: normal;
 }
 ////////////////////NULL STYLE////////////////////
+@import "macro-css";
 body {
    font-family: "Satoshi-Regular", sans-serif;
    margin: 0;
@@ -144,17 +145,27 @@ h6 {
    text-transform: uppercase;
    line-height: 140%;
    color: #000;
+   @media (max-width: 30rem) {
+      font-size: 2rem;
+   }
 }
 
 .text {
    color: #000;
    line-height: 137%;
    opacity: 0.6;
+   @media (max-width: 30rem) {
+      font-size: 0.875rem;
+   }
 }
 
 .errorBoundary {
    display: flex;
    margin: 0 auto;
+   img {
+      width: 100px;
+      height: 100px;
+   }
 }
 
 .error {

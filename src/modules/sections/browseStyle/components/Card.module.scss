@@ -4,6 +4,10 @@
    height: 18.0625rem;
    border-radius: 1.25rem;
    background: #fff;
+   transition: all 0.3s;
+   &:hover {
+      transform: scale(0.98);
+   }
    h3 {
       position: relative;
       text-align: left;

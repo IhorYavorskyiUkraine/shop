@@ -7,7 +7,11 @@ import styles from "./HeroSection.module.scss";
 
 export function HeroSection() {
    return (
-      <section className={styles.section}>
+      <section
+         data-aos="fade-left"
+         data-aos-duration="500"
+         className={styles.section}
+      >
          <div className="container">
             <div className={styles.wrapper}>
                <div className={styles.content}>
@@ -19,11 +23,11 @@ export function HeroSection() {
                   </p>
                   <Button text="Shop Now" />
                   <div className={styles.info}>
-                     <Info number="200" info="International Brands" />
+                     <Info number={200} info="International Brands" />
                      <div className={styles.line}></div>
-                     <Info number="2,000" info="High-Quality Products" />
+                     <Info number={2000} info="High-Quality Products" />
                      <div className={styles.line}></div>
-                     <Info number="30,000" info="Happy Customers" />
+                     <Info number={30000} info="Happy Customers" />
                   </div>
                </div>
                <div className={styles.bg}>

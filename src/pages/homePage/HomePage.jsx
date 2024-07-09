@@ -8,6 +8,8 @@ import { BrowseStyle } from "../../modules/sections/browseStyle";
 import { HappyCustomers } from "../../modules/sections/happyCustomers";
 import { Footer } from "../../components/footer/Footer";
 
+import { ErrorBoundary } from "react-error-boundary";
+
 function HomePage() {
    return (
       <div className="wrapper">
@@ -15,10 +17,37 @@ function HomePage() {
          <Header />
          <HeroSection />
          <BrandsSection />
-         <NewArrivals />
-         <TopSelling />
+         <ErrorBoundary
+            fallback={
+               <img
+                  className="errorBoundary"
+                  src="https://media1.tenor.com/m/ZvLReph5qCIAAAAC/skill-issue.gif"
+               />
+            }
+         >
+            <NewArrivals />
+         </ErrorBoundary>
+         <ErrorBoundary
+            fallback={
+               <img
+                  className="errorBoundary"
+                  src="https://media1.tenor.com/m/ZvLReph5qCIAAAAC/skill-issue.gif"
+               />
+            }
+         >
+            <TopSelling />
+         </ErrorBoundary>
          <BrowseStyle />
-         <HappyCustomers />
+         <ErrorBoundary
+            fallback={
+               <img
+                  className="errorBoundary"
+                  src="https://media1.tenor.com/m/ZvLReph5qCIAAAAC/skill-issue.gif"
+               />
+            }
+         >
+            <HappyCustomers />
+         </ErrorBoundary>
          <Footer />
       </div>
    );

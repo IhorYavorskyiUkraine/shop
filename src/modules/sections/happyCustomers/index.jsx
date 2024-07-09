@@ -6,7 +6,11 @@ import styles from "./HappyCustomers.module.scss";
 
 export function HappyCustomers() {
    return (
-      <section className={styles.happyCustomers}>
+      <section
+         data-aos="fade-up"
+         data-aos-duration="500"
+         className={styles.happyCustomers}
+      >
          <div className="container">
             <div className={styles.wrapper}>
                <h2 className="title">Our Happy Customers</h2>

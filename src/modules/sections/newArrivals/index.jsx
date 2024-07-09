@@ -5,6 +5,7 @@ import { fetchNewArrives } from "../../../store/slice";
 import { Card } from "../../../components/card";
 import { Skeleton } from "../../../components/skeleton";
 import { Button } from "../../../ui/button/Button";
+import { SliderCard } from "../../../components/sliderCard";
 
 import styles from "./NewArrivals.module.scss";
 
@@ -26,21 +27,33 @@ export function NewArrivals() {
    }, []);
 
    return (
-      <section className={styles.newArrivals}>
+      <section
+         data-aos="fade-up"
+         data-aos-duration="500"
+         className={styles.newArrivals}
+      >
          <div className="container">
             <h2 className="title">New Arrivals</h2>
             <div className={styles.items}>
                {error && <h2>{error}</h2>}
                {status === "loading" ? (
                   <Skeleton length={4} />
+               ) : window.innerWidth <= 768 ? (
+                  <SliderCard arrayToRender={newArrivals} />
                ) : (
                   newArrivals
                      .slice(0, visibleData)
-                     .map(item => <Card key={item.id} {...item} />)
+                     .map((item, i) => (
+                        <Card
+                           key={item.id}
+                           duration={300 + i * 100}
+                           {...item}
+                        />
+                     ))
                )}
             </div>
             {visibleData < newArrivals.length && (
-               <div style={{ display: "flex", justifyContent: "center" }}>
+               <div className="d-flex justify-center">
                   <Button
                      disabled={status === "loading"}
                      onClick={loadMore}

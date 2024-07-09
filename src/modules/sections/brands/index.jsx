@@ -2,7 +2,11 @@ import styles from "./BrandsSection.module.scss";
 
 export function BrandsSection() {
    return (
-      <section className={styles.brands}>
+      <section
+         data-aos="fade-right"
+         data-aos-duration="500"
+         className={styles.brands}
+      >
          <div className={styles.wrapper}>
             <svg
                className={styles.versace}
