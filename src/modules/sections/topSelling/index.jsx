@@ -12,9 +12,7 @@ import styles from "./TopSelling.module.scss";
 export function TopSelling() {
    const [visibleData, setVisibleData] = useState(4);
 
-   const { topSelling, status, error } = useSelector(
-      state => state.globalSlice,
-   );
+   const { topSelling, status, error } = useSelector(state => state.global);
 
    const dispatch = useDispatch();
 
@@ -47,6 +45,7 @@ export function TopSelling() {
                         <Card
                            key={item.id}
                            duration={300 + i * 100}
+                           category="top_selling"
                            {...item}
                         />
                      ))

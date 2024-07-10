@@ -2,11 +2,11 @@ import axios from "axios";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const fetchNewArrives = createAsyncThunk(
-   "globalSlice/fetchItems",
+   "global/fetchItems",
    async (_, { rejectWithValue }) => {
       try {
          const response = await axios.get(
-            "https://666a97c97013419182cff3dd.mockapi.io/newArrivals/items",
+            "https://api.mocki.io/v2/bky4cv9a/new_arrivals",
          );
 
          if (response.status !== 200) throw new Error("Error!");
@@ -19,11 +19,11 @@ export const fetchNewArrives = createAsyncThunk(
 );
 
 export const fetchTopSelling = createAsyncThunk(
-   "globalSlice/fetchTopSelling",
+   "global/fetchTopSelling",
    async (_, { rejectWithValue }) => {
       try {
          const response = await axios.get(
-            "https://666a9be47013419182d00996.mockapi.io/topSelling/items",
+            "https://api.mocki.io/v2/bky4cv9a/top_selling",
          );
 
          if (response.status !== 200) throw new Error("Error!");
@@ -36,7 +36,7 @@ export const fetchTopSelling = createAsyncThunk(
 );
 
 export const fetchReviews = createAsyncThunk(
-   "globalSlice/fetchReviews",
+   "global/fetchReviews",
    async (_, { rejectWithValue }) => {
       try {
          const response = await axios.get(
@@ -52,8 +52,27 @@ export const fetchReviews = createAsyncThunk(
    },
 );
 
+export const fetchProduct = createAsyncThunk(
+   "global/fetchProduct",
+   async ({ category, id }, { rejectWithValue }) => {
+      try {
+         const response = await axios.get(
+            `https://666a97c97013419182cff3dd.mockapi.io/${category}/${id}`,
+         );
+
+         if (response.status !== 200) throw new Error("Error!");
+
+         console.log(response.data);
+
+         return response.data;
+      } catch (error) {
+         return rejectWithValue(error.message);
+      }
+   },
+);
+
 // export const fetchAddToCart = createAsyncThunk(
-//    "globalSlice/fetchAddToCart",
+//    "global/fetchAddToCart",
 //    async (obj, { rejectWithValue, dispatch }) => {
 //       try {
 //          const response = await axios.post(
@@ -71,7 +90,7 @@ export const fetchReviews = createAsyncThunk(
 // );
 
 // export const fetchRemoveToCart = createAsyncThunk(
-//    "globalSlice/fetchAddToCart",
+//    "global/fetchAddToCart",
 //    async (id, { rejectWithValue }) => {
 //       try {
 //          const response = await axios.get(
@@ -88,15 +107,19 @@ export const fetchReviews = createAsyncThunk(
 // );
 
 const slice = createSlice({
-   name: "globalSlice",
+   name: "global",
    initialState: {
       newArrivals: [],
       topSelling: [],
       reviews: [],
       status: "loading",
+      category: "",
       error: null,
    },
    reducers: {
+      changeCategory(state, action) {
+         state.category = action.payload;
+      },
       addToCart(state, action) {},
       removeFromCart(state, action) {},
    },
@@ -140,6 +163,6 @@ const slice = createSlice({
    },
 });
 
-export const { addToCart, limitPlus } = slice.actions;
+export const { addToCart, limitPlus, changeCategory } = slice.actions;
 
 export default slice.reducer;

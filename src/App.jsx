@@ -5,7 +5,7 @@ import aos from "aos";
 import "aos/dist/aos.css";
 import "./App.scss";
 
-import { HomePage, NotFoundPage } from "./pages";
+import { HomePage, ProductPage, NotFoundPage } from "./pages";
 
 const router = createBrowserRouter([
    {
@@ -13,11 +13,21 @@ const router = createBrowserRouter([
       element: <HomePage />,
       errorElement: <NotFoundPage />,
    },
-   //    {
-   //       path: "/shop",
-   //       element: <ShopPage />,
-   //       errorElement: <NotFoundPage />,
-   //    },
+   // {
+   //    path: "/shop",
+   //    element: <ShopPage />,
+   //    errorElement: <NotFoundPage />,
+   // },
+   {
+      path: "/shop/men/:category/:id",
+      element: <ProductPage />,
+      errorElement: <NotFoundPage />,
+   },
+   {
+      path: "/:category/:id",
+      element: <ProductPage />,
+      errorElement: <NotFoundPage />,
+   },
    //    {
    //       path: "/on_sale",
    //       element: <OnSalePage />,

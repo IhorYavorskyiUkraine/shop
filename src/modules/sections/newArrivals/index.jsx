@@ -12,9 +12,7 @@ import styles from "./NewArrivals.module.scss";
 export function NewArrivals() {
    const [visibleData, setVisibleData] = useState(4);
 
-   const { newArrivals, status, error } = useSelector(
-      state => state.globalSlice,
-   );
+   const { newArrivals, status, error } = useSelector(state => state.global);
 
    const dispatch = useDispatch();
 
@@ -47,6 +45,7 @@ export function NewArrivals() {
                         <Card
                            key={item.id}
                            duration={300 + i * 100}
+                           category="new_arrivals"
                            {...item}
                         />
                      ))

@@ -138,7 +138,7 @@ export function Footer() {
    ];
 
    return (
-      <footer data-aos="fade-right" data-aos-duration="300">
+      <footer data-aos="fade-right" data-aos-duration="500">
          <div className="container">
             <div className={styles.wrapper}>
                <div className={styles.footerTop}>

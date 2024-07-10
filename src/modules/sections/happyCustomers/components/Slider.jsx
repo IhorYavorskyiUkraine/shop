@@ -11,7 +11,7 @@ import styles from "./Slider.module.scss";
 import "swiper/css";
 
 export function Slider() {
-   const { reviews, status, error } = useSelector(state => state.globalSlice);
+   const { reviews, status, error } = useSelector(state => state.global);
 
    const dispatch = useDispatch();
 
