@@ -1,0 +1,9 @@
+.list {
+   display: inline-flex;
+   gap: 0.625rem;
+   li {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+   }
+}

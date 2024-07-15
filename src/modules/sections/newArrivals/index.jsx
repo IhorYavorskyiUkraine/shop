@@ -22,7 +22,7 @@ export function NewArrivals() {
 
    useEffect(() => {
       dispatch(fetchNewArrives());
-   }, []);
+   }, [dispatch]);
 
    return (
       <section

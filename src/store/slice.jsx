@@ -6,7 +6,7 @@ export const fetchNewArrives = createAsyncThunk(
    async (_, { rejectWithValue }) => {
       try {
          const response = await axios.get(
-            "https://api.mocki.io/v2/bky4cv9a/new_arrivals",
+            "https://666a97c97013419182cff3dd.mockapi.io/new_arrivals/items",
          );
 
          if (response.status !== 200) throw new Error("Error!");
@@ -23,7 +23,7 @@ export const fetchTopSelling = createAsyncThunk(
    async (_, { rejectWithValue }) => {
       try {
          const response = await axios.get(
-            "https://api.mocki.io/v2/bky4cv9a/top_selling",
+            "https://666a9be47013419182d00996.mockapi.io/top_selling/items",
          );
 
          if (response.status !== 200) throw new Error("Error!");
@@ -54,15 +54,13 @@ export const fetchReviews = createAsyncThunk(
 
 export const fetchProduct = createAsyncThunk(
    "global/fetchProduct",
-   async ({ category, id }, { rejectWithValue }) => {
+   async ({ id }, { rejectWithValue }) => {
       try {
          const response = await axios.get(
-            `https://666a97c97013419182cff3dd.mockapi.io/${category}/${id}`,
+            `https://666a97c97013419182cff3dd.mockapi.io/new_arrivals/items/${id}`,
          );
 
          if (response.status !== 200) throw new Error("Error!");
-
-         console.log(response.data);
 
          return response.data;
       } catch (error) {
@@ -112,6 +110,7 @@ const slice = createSlice({
       newArrivals: [],
       topSelling: [],
       reviews: [],
+      product: null,
       status: "loading",
       category: "",
       error: null,
@@ -157,6 +156,18 @@ const slice = createSlice({
          state.reviews = action.payload;
       });
       builder.addCase(fetchReviews.rejected, (state, action) => {
+         state.status = "rejected";
+         state.error = action.payload;
+      });
+      builder.addCase(fetchProduct.pending, state => {
+         state.status = "loading";
+         state.error = null;
+      });
+      builder.addCase(fetchProduct.fulfilled, (state, action) => {
+         state.status = "success";
+         state.product = action.payload;
+      });
+      builder.addCase(fetchProduct.rejected, (state, action) => {
          state.status = "rejected";
          state.error = action.payload;
       });

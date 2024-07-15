@@ -23,7 +23,6 @@ export function TopSelling() {
    useEffect(() => {
       dispatch(fetchTopSelling());
    }, [dispatch]);
-
    return (
       <section
          data-aos="fade-up"
