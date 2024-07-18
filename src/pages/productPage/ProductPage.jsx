@@ -11,7 +11,16 @@ function ProductPage() {
       <div className="wrapper">
          <Popup />
          <Header />
-         <ProductAbout />
+         <ErrorBoundary
+            fallback={
+               <img
+                  className="errorBoundary"
+                  src="https://media1.tenor.com/m/ZvLReph5qCIAAAAC/skill-issue.gif"
+               />
+            }
+         >
+            <ProductAbout />
+         </ErrorBoundary>
          <Footer />
       </div>
    );

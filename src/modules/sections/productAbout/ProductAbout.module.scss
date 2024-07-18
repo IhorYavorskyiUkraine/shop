@@ -1,0 +1,28 @@
+.aboutProduct {
+   display: flex;
+   gap: 2.5rem;
+   padding: 24px 0rem;
+}
+
+.buttons {
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+   button {
+      position: relative;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgb(0, 0, 0, 0.1);
+   }
+}
+
+.active {
+   border-bottom: 2px solid rgb(0, 0, 0, 1) !important;
+}
+
+.faq {
+}
+
+.productDetails {
+}
+
+.reviews {
+}

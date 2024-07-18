@@ -1,0 +1,66 @@
+.wrapper {
+   display: grid;
+   grid-template-columns: 10.625rem 25rem;
+   justify-content: space-between;
+   padding-top: 24px;
+}
+
+.quantity {
+   display: inline-flex;
+   align-items: center;
+   justify-content: space-between;
+   border-radius: 3.875rem;
+   background: #f0f0f0;
+   padding: 1rem 1.25rem;
+   font-family: "Satoshi-Medium";
+   font-weight: 500;
+}
+
+.addToCart {
+   background: #000;
+   color: #fff;
+   padding: 0.75rem 1.5rem;
+   border-radius: 3.875rem;
+}
+
+.decrement,
+.increment {
+   width: 1.125rem;
+   height: 1.125rem;
+   position: relative;
+   cursor: pointer;
+   &:before,
+   &:after {
+      content: "";
+      position: absolute;
+      background: #000;
+   }
+   &:before {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+   }
+   &:after {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+   }
+}
+
+.decrement {
+   &:before {
+      width: 60%;
+      height: 0.125rem;
+   }
+}
+
+.increment {
+   &:before {
+      width: 60%;
+      height: 0.125rem;
+   }
+   &:after {
+      width: 0.125rem;
+      height: 60%;
+   }
+}

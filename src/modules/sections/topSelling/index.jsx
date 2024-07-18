@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchTopSelling } from "../../../store/slice";
+import { fetchTopSelling } from "./slice/slice";
 
 import { Card } from "../../../components/card";
 import { Skeleton } from "../../../components/skeleton";
@@ -12,7 +12,9 @@ import styles from "./TopSelling.module.scss";
 export function TopSelling() {
    const [visibleData, setVisibleData] = useState(4);
 
-   const { topSelling, status, error } = useSelector(state => state.global);
+   const { topSelling, status, error } = useSelector(
+      state => state.topSellingSlice,
+   );
 
    const dispatch = useDispatch();
 

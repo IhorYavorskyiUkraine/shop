@@ -1,23 +1,25 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchNewArrives } from "../../../store/slice";
+import { fetchNewArrives } from "./slice/slice";
 
 import { Card } from "../../../components/card";
 import { Skeleton } from "../../../components/skeleton";
 import { Button } from "../../../ui/button/Button";
 import { SliderCard } from "../../../components/sliderCard";
 
+import { setVisibleData } from "./slice/slice";
+
 import styles from "./NewArrivals.module.scss";
 
 export function NewArrivals() {
-   const [visibleData, setVisibleData] = useState(4);
-
-   const { newArrivals, status, error } = useSelector(state => state.global);
+   const { newArrivals, visibleData, status, error } = useSelector(
+      state => state.newArrivalsSlice,
+   );
 
    const dispatch = useDispatch();
 
    const loadMore = () => {
-      setVisibleData(prev => prev + 4);
+      dispatch(setVisibleData(visibleData + 4));
    };
 
    useEffect(() => {

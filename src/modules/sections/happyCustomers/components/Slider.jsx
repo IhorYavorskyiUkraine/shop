@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchReviews } from "../../../../store/slice";
+import { fetchReviews } from "../slice/slice";
 import { Rating } from "react-simple-star-rating";
 
 import { Skeleton } from "../../../../components/skeleton";
@@ -11,7 +11,9 @@ import styles from "./Slider.module.scss";
 import "swiper/css";
 
 export function Slider() {
-   const { reviews, status, error } = useSelector(state => state.global);
+   const { reviews, status, error } = useSelector(
+      state => state.happyCustomersSlice,
+   );
 
    const dispatch = useDispatch();
 

@@ -1,18 +1,14 @@
 import { useEffect } from "react";
 import { Rating } from "react-simple-star-rating";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-
-import { changeCategory } from "../../store/slice";
+import { useDispatch } from "react-redux";
 
 import styles from "./Card.module.scss";
 
 export function Card({ image, name, price, rating, id, duration, category }) {
    const dispatch = useDispatch();
 
-   useEffect(() => {
-      dispatch(changeCategory(category));
-   }, []);
+   useEffect(() => {}, []);
 
    return (
       <Link
@@ -30,7 +26,7 @@ export function Card({ image, name, price, rating, id, duration, category }) {
                <Rating readonly allowFraction size={20} initialValue={rating} />
                <p>{rating}/5</p>
             </div>
-            <p>${price}</p>
+            <p>${price} </p>
          </div>
       </Link>
    );
