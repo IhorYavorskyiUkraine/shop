@@ -29,6 +29,8 @@ export function ProductAbout() {
       scrollTo(0, 0);
    }, []);
 
+   const tabs = ["Product Details", "Rating & Reviews", "FAQs"];
+
    const handleTabClick = tab => {
       dispatch(setActiveTab(tab));
    };
@@ -43,34 +45,21 @@ export function ProductAbout() {
             </div>
             <div className={styles.tabs}>
                <div className={styles.buttons}>
-                  <button
-                     onClick={() => handleTabClick("productDetails")}
-                     className={`text ${
-                        activeTab === "productDetails" ? styles.active : ""
-                     }`}
-                  >
-                     <span>Product Details</span>
-                  </button>
-                  <button
-                     onClick={() => handleTabClick("reviews")}
-                     className={`text ${
-                        activeTab === "reviews" ? styles.active : ""
-                     }`}
-                  >
-                     <span>Rating & Reviews</span>
-                  </button>
-                  <button
-                     onClick={() => handleTabClick("faq")}
-                     className={`text ${
-                        activeTab === "faq" ? styles.active : ""
-                     }`}
-                  >
-                     <span>FAQs</span>
-                  </button>
+                  {tabs.map(tab => (
+                     <button
+                        key={tab}
+                        onClick={() => handleTabClick(tab)}
+                        className={`text ${
+                           activeTab === tab ? styles.active : ""
+                        }`}
+                     >
+                        <span>{tab}</span>
+                     </button>
+                  ))}
                </div>
-               {activeTab === "productDetails" && <ProductDetails />}
-               {activeTab === "reviews" && <ReviewsTab />}
-               {activeTab === "faq" && <FaqTab />}
+               {activeTab === "Product Details" && <ProductDetails />}
+               {activeTab === "Rating & Reviews" && <ReviewsTab />}
+               {activeTab === "FAQs" && <FaqTab />}
             </div>
             <div className={styles.recomended}></div>
          </div>

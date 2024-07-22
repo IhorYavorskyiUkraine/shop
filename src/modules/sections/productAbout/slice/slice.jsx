@@ -28,7 +28,8 @@ const productAboutSlice = createSlice({
       quantity: 0,
       activeImage: 0,
       activeIndex: 0,
-      activeTab: "productDetails",
+      activeTab: "Rating & Reviews",
+      selectedFilter: "",
       status: "loading",
       error: null,
    },
@@ -53,6 +54,9 @@ const productAboutSlice = createSlice({
       },
       setActiveTab(state, action) {
          state.activeTab = action.payload;
+      },
+      setSelectedFilter(state, action) {
+         state.selectedFilter = action.payload;
       },
       addToCart(state, action) {},
       removeFromCart(state, action) {},
@@ -81,6 +85,7 @@ export const {
    setActiveImage,
    setActiveIndex,
    setActiveTab,
+   setSelectedFilter,
    addToCart,
    removeFromCart,
 } = productAboutSlice.actions;

@@ -1,0 +1,29 @@
+.wrapper {
+   padding: 2.125rem 0rem;
+   h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      line-height: 2rem;
+      font-family: "Satoshi-Bold";
+      margin-bottom: 2.125rem;
+      position: relative;
+      span {
+         position: absolute;
+         font-size: 1rem;
+         font-weight: 400;
+         opacity: 0.6;
+         bottom: -0.5rem;
+      }
+   }
+}
+
+.top {
+   display: flex;
+   justify-content: space-between;
+}
+
+.reviews {
+   display: grid;
+   grid-template-columns: repeat(2, 38.125rem);
+   gap: 1.25rem;
+}
