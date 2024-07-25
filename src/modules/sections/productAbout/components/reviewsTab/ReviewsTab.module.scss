@@ -20,6 +20,19 @@
 .top {
    display: flex;
    justify-content: space-between;
+   align-items: flex-start;
+}
+
+.buttons {
+   display: flex;
+   gap: 0.625rem;
+}
+
+.writeBtn {
+   background: #000;
+   color: #fff;
+   border-radius: 3.875rem;
+   padding: 0.8125rem 1.25rem;
 }
 
 .reviews {

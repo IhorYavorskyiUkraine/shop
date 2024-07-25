@@ -11,6 +11,10 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.5",
+    "@types/aos": "^3.0.7",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.14.12",
+    "@types/react-router-dom": "^5.3.3",
     "aos": "^2.3.4",
     "axios": "^1.7.2",
     "macro-css": "^1.0.5",
@@ -22,11 +26,13 @@
     "react-router-dom": "^6.23.1",
     "react-simple-star-rating": "^5.1.7",
     "sass": "^1.77.5",
-    "swiper": "^11.1.4"
+    "swiper": "^11.1.4",
+    "typescript": "^5.5.4",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
-    "@types/react": "^18.2.66",
-    "@types/react-dom": "^18.2.22",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "eslint": "^8.57.0",
     "eslint-plugin-react": "^7.34.1",

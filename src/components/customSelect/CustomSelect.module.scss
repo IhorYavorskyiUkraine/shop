@@ -9,6 +9,9 @@
 }
 
 .selectSelected {
+   display: flex;
+   align-items: center;
+   gap: 0.625rem;
    span {
       font-weight: 500;
       font-family: "Satoshi-Bold";
