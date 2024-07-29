@@ -11,18 +11,25 @@ import user from "/images/header/user.svg";
 
 import styles from "./Header.module.scss";
 
+// Header component with navigation, search, and icons
 export const Header: React.FC = () => {
-   const [dropdown, setDropdown] = useState(false);
-   const [input, setInput] = useState("");
+   const [dropdown, setDropdown] = useState(false); // State for dropdown menu visibility
+   const [input, setInput] = useState(""); // State for search input value
 
-   const menuRef = useRef(null);
+   const menuRef = useRef<HTMLUListElement>(null); // Ref for dropdown menu container
 
-   const handleClickOutside = e => {
-      if (menuRef.current && !menuRef.current.contains(e.target)) {
+   // Close dropdown if clicked outside
+   const handleClickOutside = (e: MouseEvent) => {
+      if (
+         menuRef.current &&
+         e.target instanceof Node &&
+         !menuRef.current.contains(e.target)
+      ) {
          setDropdown(false);
       }
    };
 
+   // Add and remove event listener for clicks outside dropdown
    useEffect(() => {
       document.addEventListener("mousedown", handleClickOutside);
       return () => {
@@ -35,20 +42,21 @@ export const Header: React.FC = () => {
          <header className={styles.header}>
             <div className="container">
                <div className={styles.wrapper}>
-                  <BurgerMenu />
+                  <BurgerMenu /> {/* Burger menu component for mobile */}
                   <Link className={styles.logo} to="/">
-                     shop.co
+                     shop.co {/* Logo linking to home page */}
                   </Link>
                   <nav>
                      <ul className={styles.list}>
                         <li>
                            <button onClick={() => setDropdown(!dropdown)}>
                               Shop
+                              {/* Toggle dropdown icon rotation */}
                               <img
                                  style={
                                     dropdown
                                        ? { transform: "rotate(180deg)" }
-                                       : null
+                                       : undefined
                                  }
                                  src={arrow}
                                  alt="arrow"
@@ -67,27 +75,30 @@ export const Header: React.FC = () => {
                      </ul>
                   </nav>
                   <form className={styles.form}>
-                     <img src={searchInput} alt="searchInput" />
+                     <img src={searchInput} alt="searchInput" />{" "}
+                     {/* Search input icon */}
                      <input
                         value={input}
-                        onChange={e => setInput(e.target.value)}
+                        onChange={e => setInput(e.target.value)} // Update search input value
                         type="text"
                         placeholder="Search for products..."
                      />
-                     {/* <ul className={styles.searchList}>{input}</ul>
-							итемс есть? показать */}
+                     {/* Search suggestions list (currently commented out) */}
                   </form>
                   <div className={styles.icons}>
-                     <SearchInput />
+                     <SearchInput /> {/* Additional search input component */}
                      <Link to="/cart">
-                        <img src={cart} alt="cart" />
+                        <img src={cart} alt="cart" />{" "}
+                        {/* Cart icon linking to cart page */}
                      </Link>
                      <Link to="/user">
-                        <img src={user} alt="user" />
+                        <img src={user} alt="user" />{" "}
+                        {/* User icon linking to user profile */}
                      </Link>
                   </div>
                </div>
             </div>
+            {/* Dropdown menu for 'Shop' button */}
             {dropdown && (
                <ul ref={menuRef} className={styles.dropdown}>
                   <li>
@@ -105,6 +116,7 @@ export const Header: React.FC = () => {
                </ul>
             )}
          </header>
+         {/* Overlay to cover the rest of the page when dropdown is active */}
          {dropdown && <div className={styles.overlay}></div>}
       </>
    );

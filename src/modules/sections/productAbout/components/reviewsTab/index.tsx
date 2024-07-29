@@ -1,36 +1,41 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useMemo, useEffect } from "react";
-import { SelectedFilter } from "../../slice/slice";
+import { SelectedFilter, Option } from "../../slice/types";
 
-import { selectorProductAbout } from "../../slice/slice";
 import { ReviewCard } from "../../../../../components/reviewCard";
 import { ReviewForm } from "../reviewForm";
+import { CustomSelect } from "../../../../../components/customSelect";
 
 import { setSelectedFilter, setFormStatus } from "../../slice/slice";
 
-import { CustomSelect } from "../../../../../components/customSelect";
+import { selectorProductAbout } from "../../slice/slice";
 
 import styles from "./ReviewsTab.module.scss";
 
 export const ReviewsTab: React.FC = () => {
+   // Get the product details, selected filter, and form status from Redux store
    const { product, selectedFilter, formStatus } =
       useSelector(selectorProductAbout);
 
    const dispatch = useDispatch();
 
-   const options = [
+   // Options for the review filter select dropdown
+   const options: Option[] = [
       { value: "latest", label: "Latest" },
       { value: "newest", label: "Newest" },
    ];
 
+   // Handle filter option change
    const handleChange = (option: SelectedFilter) => {
       dispatch(setSelectedFilter(option));
    };
 
+   // Set default filter on component mount
    useEffect(() => {
       dispatch(setSelectedFilter("latest"));
-   }, []);
+   }, [dispatch]);
 
+   // Memoized sorted reviews based on the selected filter
    const sortedReviews = useMemo(() => {
       if (!product?.reviews) return [];
 
@@ -41,6 +46,7 @@ export const ReviewsTab: React.FC = () => {
          return !isNaN(date.getTime());
       };
 
+      // Sort reviews based on the selected filter
       switch (selectedFilter) {
          case "newest":
             sorted.sort((a, b) => {
@@ -94,6 +100,7 @@ export const ReviewsTab: React.FC = () => {
             </div>
          </div>
          <div className={styles.reviews}>
+            {/* Render sorted reviews */}
             {sortedReviews.map(review => (
                <ReviewCard key={review.id} review={review} productReview />
             ))}

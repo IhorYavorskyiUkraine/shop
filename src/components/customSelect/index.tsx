@@ -1,25 +1,32 @@
 import { useState, useEffect, useRef } from "react";
 
+import { SelectedFilter } from "../../modules/sections/productAbout/slice/types";
+import { Option } from "../../modules/sections/productAbout/slice/types";
+
 import arrow from "/images/productAbout/arrow.svg";
 
 import styles from "./CustomSelect.module.scss";
-import { SelectedFilter } from "../../modules/sections/productAbout/slice/slice";
 
+// Props interface for CustomSelect component
 type Props = {
-   options: { value: string; label: string }[];
-   selectedValue: string;
-   handleChange: (option: SelectedFilter) => void;
+   options: Option[]; // Array of options for the select dropdown
+   selectedValue: string; // Currently selected value
+   handleChange: (option: SelectedFilter) => void; // Function to handle option selection
 };
 
+// CustomSelect component
 export const CustomSelect: React.FC<Props> = ({
    options,
    selectedValue,
    handleChange,
 }) => {
+   // State to manage dropdown open/close
    const [isOpen, setIsOpen] = useState(false);
 
+   // Ref to detect clicks outside the dropdown
    const filterRef = useRef<HTMLDivElement>(null);
 
+   // Handle clicks outside the dropdown to close it
    const handleClickOutsideFilters = (e: MouseEvent) => {
       if (
          filterRef.current &&
@@ -37,13 +44,15 @@ export const CustomSelect: React.FC<Props> = ({
       };
    }, []);
 
-   const handleClick = (value: string) => {
+   // Handle option click
+   const handleClick = (value: SelectedFilter) => {
       handleChange(value);
-      setIsOpen(false);
+      setIsOpen(false); // Close dropdown after selection
    };
 
    return (
       <div className={styles.customSelect}>
+         {/* Selected value display and toggle button */}
          <div
             className={styles.selectSelected}
             onClick={() => setIsOpen(!isOpen)}
@@ -57,9 +66,10 @@ export const CustomSelect: React.FC<Props> = ({
                alt="arrow"
             />
          </div>
+         {/* Dropdown options */}
          {isOpen && (
             <div className={styles.selectOptions} ref={filterRef}>
-               {options.map(option => (
+               {options.map((option: Option) => (
                   <div key={option.value} className={styles.selectOption}>
                      <div
                         className={styles.checkmark}

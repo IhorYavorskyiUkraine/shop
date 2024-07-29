@@ -1,37 +1,21 @@
 import axios from "axios";
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../../../store";
-import { Product, Status } from "../../newArrivals/slice/slice";
 
-type FetchProductArgs = {
-   id: string;
-};
-export type Sizes = "" | "s" | "m" | "l" | "xl";
-type ActiveTab = "Product Details" | "Rating & Reviews" | "FAQs";
-export type SelectedFilter = "all" | "latest" | "newest";
-
-interface ProductAboutState {
-   product: Product | null;
-   selectedSize: Sizes;
-   color: string;
-   colorList: string[];
-   quantity: number;
-   activeImage: number;
-   activeIndex: number;
-   activeTab: ActiveTab;
-   selectedFilter: SelectedFilter;
-   formStatus: boolean;
-   formRating: number;
-   formAuthor: string;
-   formText: string;
-   status: Status;
-   error: string | null;
-}
-
-export const fetchProduct = createAsyncThunk<
-   Product,
+import {
+   ActiveTab,
    FetchProductArgs,
-   { rejectValue: string }
+   ProductAboutState,
+   SelectedFilter,
+   Sizes,
+} from "./types";
+import { Product, Status } from "../../newArrivals/slice/types";
+
+// Async thunk to fetch product details by ID
+export const fetchProduct = createAsyncThunk<
+   Product, // Type of data to return on success
+   FetchProductArgs, // Type of arguments for the thunk
+   { rejectValue: string } // Type of error message for rejection
 >("productAbout/fetchProduct", async ({ id }, { rejectWithValue }) => {
    try {
       const response = await axios.get<Product>(
@@ -46,117 +30,103 @@ export const fetchProduct = createAsyncThunk<
    }
 });
 
-// export const postReview = createAsyncThunk<
-//    any[],
-//    {
-//       id: string;
-//       review: object;
-//    },
-//    { rejectValue: string }
-// >("productAbout/postReview", async ({ id, review }, { rejectWithValue }) => {
-//    try {
-//       const response = await axios.post(
-//          `https://666a97c97013419182cff3dd.mockapi.io/new_arrivals/items/${id}`,
-//          review,
-//       );
-
-//       if (response.status !== 201) throw new Error("Error!");
-
-//       return response.data;
-//    } catch (error: any) {
-//       return rejectWithValue(error.message);
-//    }
-// });
-
+// Initial state for the productAbout slice
 const initialState: ProductAboutState = {
-   product: null,
-   selectedSize: "s",
-   color: "",
-   colorList: [],
-   quantity: 0,
-   activeImage: 0,
-   activeIndex: 0,
-   activeTab: "Rating & Reviews",
-   selectedFilter: "latest",
-   formStatus: false,
-   formRating: 0,
-   formAuthor: "",
-   formText: "",
-   status: Status.LOADING,
-   error: null,
+   product: null, // Product details
+   selectedSize: "s", // Default size
+   color: "", // Selected color
+   colorList: [], // List of available colors
+   quantity: 0, // Quantity of the product
+   activeImage: 0, // Index of the currently displayed image
+   activeIndex: 0, // Index for other UI components
+   activeTab: "Rating & Reviews", // Default active tab
+   selectedFilter: "latest", // Default filter for sorting
+   formStatus: false, // Status of the review form
+   formRating: 0, // Rating given in the review form
+   formAuthor: "", // Author of the review
+   formText: "", // Text of the review
+   status: Status.LOADING, // Status of the data fetching
+   error: null, // Error message, if any
 };
 
+// Slice to manage product-related state
 const productAboutSlice = createSlice({
    name: "productAbout",
    initialState,
    reducers: {
+      // Update the selected size
       setSelectedSize(state, action: PayloadAction<Sizes>) {
          state.selectedSize = action.payload;
       },
+      // Update the selected color
       setColor(state, action: PayloadAction<string>) {
          state.color = action.payload;
       },
+      // Update the list of available colors
       setColorList(state, action: PayloadAction<string[]>) {
          state.colorList = action.payload;
       },
+      // Update the quantity of the product
       setQuantity(state, action: PayloadAction<number>) {
          state.quantity = action.payload;
       },
+      // Update the index of the currently displayed image
       setActiveImage(state, action: PayloadAction<number>) {
          state.activeImage = action.payload;
       },
+      // Update the index for other UI components
       setActiveIndex(state, action: PayloadAction<number>) {
          state.activeIndex = action.payload;
       },
+      // Update the currently active tab
       setActiveTab(state, action: PayloadAction<ActiveTab>) {
          state.activeTab = action.payload;
       },
+      // Update the selected filter for sorting
       setSelectedFilter(state, action: PayloadAction<SelectedFilter>) {
          state.selectedFilter = action.payload;
       },
+      // Update the form status (submitted/not submitted)
       setFormStatus(state, action: PayloadAction<boolean>) {
          state.formStatus = action.payload;
       },
+      // Update the review text
       setFormText(state, action: PayloadAction<string>) {
          state.formText = action.payload;
       },
+      // Update the review rating
       setFormRating(state, action: PayloadAction<number>) {
          state.formRating = action.payload;
       },
+      // Update the review author's name
       setFormAuthor(state, action: PayloadAction<string>) {
          state.formAuthor = action.payload;
       },
+      // Placeholder for adding product to cart
       addToCart(state, action) {},
+      // Placeholder for removing product from cart
       removeFromCart(state, action) {},
    },
    extraReducers: builder => {
+      // Handle pending state of fetchProduct
       builder.addCase(fetchProduct.pending, state => {
          state.status = Status.LOADING;
          state.error = null;
       });
+      // Handle successful fetchProduct
       builder.addCase(fetchProduct.fulfilled, (state, action) => {
          state.status = Status.SUCCESS;
          state.product = action.payload;
       });
+      // Handle failed fetchProduct
       builder.addCase(fetchProduct.rejected, (state, action) => {
          state.status = Status.REJECTED;
          state.error = action.payload ?? "Unknown error";
       });
-      // builder.addCase(postReview.pending, state => {
-      //    state.status = Status.LOADING;
-      //    state.error = null;
-      // });
-      // builder.addCase(postReview.fulfilled, (state, action) => {
-      //    state.status = Status.SUCCESS;
-      //    state.product = action.payload;
-      // });
-      // builder.addCase(postReview.rejected, (state, action) => {
-      //    state.status = Status.REJECTED;
-      //    state.error = action.payload ?? "Unknown error";
-      // });
    },
 });
 
+// Export action creators for state updates
 export const {
    setSelectedSize,
    setColor,
@@ -174,6 +144,7 @@ export const {
    removeFromCart,
 } = productAboutSlice.actions;
 
+// Selector to get productAbout state from the Redux store
 export const selectorProductAbout = (state: RootState) =>
    state.productAboutSlice;
 

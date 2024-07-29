@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-
-import { fetchProduct } from "./slice/slice";
+import { useSelector } from "react-redux";
+import { useAppDispatch } from "../../../store";
 
 import { Breadcrumbs } from "../../../components/breadCrumbs";
 import { Left } from "./components/aboutProduct/left";
@@ -11,27 +10,36 @@ import { ProductDetails } from "./components/productDetailsTab";
 import { ReviewsTab } from "./components/reviewsTab/index";
 import { FaqTab } from "./components/faqTab";
 
+import { fetchProduct } from "./slice/slice";
 import { setActiveTab } from "./slice/slice";
-
 import { selectorProductAbout } from "./slice/slice";
+
+import { ActiveTab } from "./slice/types";
+import { Tabs } from "./slice/types";
 
 import styles from "./ProductAbout.module.scss";
 
 export const ProductAbout: React.FC = () => {
+   // Get the currently active tab from the Redux store
    const { activeTab } = useSelector(selectorProductAbout);
 
-   const dispatch = useDispatch();
+   // Initialize dispatch function
+   const dispatch = useAppDispatch();
 
+   // Get product ID from URL parameters
    const { id } = useParams();
 
+   // Fetch product details on component mount and scroll to top
    useEffect(() => {
-      dispatch(fetchProduct({ id }));
+      if (id) dispatch(fetchProduct({ id }));
       scrollTo(0, 0);
-   }, []);
+   }, [id, dispatch]);
 
-   const tabs = ["Product Details", "Rating & Reviews", "FAQs"];
+   // Tabs for product details, reviews, and FAQs
+   const tabs: Tabs[] = ["Product Details", "Rating & Reviews", "FAQs"];
 
-   const handleTabClick = tab => {
+   // Handle tab click to update active tab
+   const handleTabClick = (tab: ActiveTab) => {
       dispatch(setActiveTab(tab));
    };
 
@@ -45,7 +53,8 @@ export const ProductAbout: React.FC = () => {
             </div>
             <div className={styles.tabs}>
                <div className={styles.buttons}>
-                  {tabs.map(tab => (
+                  {/* Render tab buttons */}
+                  {tabs.map((tab: Tabs) => (
                      <button
                         key={tab}
                         onClick={() => handleTabClick(tab)}
@@ -57,6 +66,7 @@ export const ProductAbout: React.FC = () => {
                      </button>
                   ))}
                </div>
+               {/* Render content based on active tab */}
                {activeTab === "Product Details" && <ProductDetails />}
                {activeTab === "Rating & Reviews" && <ReviewsTab />}
                {activeTab === "FAQs" && <FaqTab />}

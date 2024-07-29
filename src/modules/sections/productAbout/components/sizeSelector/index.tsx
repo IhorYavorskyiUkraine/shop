@@ -1,22 +1,27 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Sizes } from "../../slice/slice";
 
 import { setSelectedSize } from "../../slice/slice";
+
+import { Sizes } from "../../slice/types";
 
 import { selectorProductAbout } from "../../slice/slice";
 
 import styles from "./SizeSelector.module.scss";
 
 export function SizeSelector() {
+   // Get the current product and selected size from the Redux store
    const { product, selectedSize } = useSelector(selectorProductAbout);
 
+   // Initialize dispatch function
    const dispatch = useDispatch();
 
+   // Reset selected size when the product changes
    useEffect(() => {
       dispatch(setSelectedSize(""));
-   }, [product]);
+   }, [product, dispatch]);
 
+   // Handle size button click to update selected size
    const handleSizeClick = (size: Sizes) => {
       dispatch(setSelectedSize(size));
    };
@@ -25,6 +30,7 @@ export function SizeSelector() {
       <div className={styles.wrapper}>
          <p className="text">Choose Size</p>
          <div className={styles.buttons}>
+            {/* Render size buttons */}
             {product?.options.size.map(size => (
                <button
                   key={size}
