@@ -1,7 +1,11 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import { useAppDispatch } from "../../../../../store";
 import { useParams } from "react-router-dom";
 import { Rating } from "react-simple-star-rating";
-// import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from "uuid";
+
+import { postReview } from "../../slice/slice";
+import { postFetchReview } from "../../slice/slice";
 
 import {
    setFormRating,
@@ -9,8 +13,6 @@ import {
    setFormStatus,
    setFormAuthor,
 } from "../../slice/slice";
-
-// import { postReview } from "../../slice/slice";
 
 import { selectorProductAbout } from "../../slice/slice";
 
@@ -20,26 +22,46 @@ export const ReviewForm: React.FC = () => {
    const { formText, formRating, formAuthor } =
       useSelector(selectorProductAbout);
 
-   const { id } = useParams();
+   const { id } = useParams<{ id: string }>();
 
-   const dispatch = useDispatch();
+   const dispatch = useAppDispatch();
 
-   // const handleClose = () => {
-   //    const review = {
-   //       id: uuidv4(),
-   //       rating: formRating,
-   //       author: formAuthor,
-   //       review: formText,
-   //       date: new Date(),
-   //    };
-   //    console.log(review);
-   //    dispatch(setFormStatus(false));
-   //    dispatch(postReview(id, review));
+   const handleClose = async (e: React.FormEvent) => {
+      // Prevent form submission
+      e.preventDefault();
 
-   //    dispatch(setFormAuthor(""));
-   //    dispatch(setFormRating(0));
-   //    dispatch(setFormText(""));
-   // };
+      const date = new Date();
+      const options: Intl.DateTimeFormatOptions = {
+         year: "numeric",
+         month: "long",
+         day: "numeric",
+      };
+      const formattedDate = date.toLocaleDateString("en-US", options);
+
+      const review = {
+         id: uuidv4(),
+         rating: formRating,
+         author: formAuthor,
+         review: formText,
+         date: formattedDate,
+      };
+
+      if (id) {
+         try {
+            // Dispatch actions sequentially
+            dispatch(postReview(review));
+            await dispatch(postFetchReview({ id, review }));
+            dispatch(setFormStatus(false));
+
+            // Clear form fields
+            dispatch(setFormRating(0));
+            dispatch(setFormText(""));
+            dispatch(setFormAuthor(""));
+         } catch (error) {
+            console.error("Error handling review:", error);
+         }
+      }
+   };
 
    return (
       <form>
@@ -57,8 +79,10 @@ export const ReviewForm: React.FC = () => {
             value={formText}
             onChange={e => dispatch(setFormText(e.target.value))}
          />
-         <Rating onClick={e => dispatch(setFormRating(e))} />
-         {/* <button onClick={() => dispatch(handleClose())}>Ok</button> */}
+         <Rating onClick={rating => dispatch(setFormRating(rating))} />
+         <button type="submit" onClick={e => handleClose(e)}>
+            Submit
+         </button>
       </form>
    );
 };

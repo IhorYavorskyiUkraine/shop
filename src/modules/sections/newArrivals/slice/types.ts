@@ -4,7 +4,7 @@ export enum Status {
    REJECTED = "rejected",
 }
 
-type Review = {
+export type Review = {
    id: string;
    rating: number;
    author: string;

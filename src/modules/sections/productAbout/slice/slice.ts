@@ -10,6 +10,7 @@ import {
    Sizes,
 } from "./types";
 import { Product, Status } from "../../newArrivals/slice/types";
+import { Review } from "../../newArrivals/slice/types";
 
 // Async thunk to fetch product details by ID
 export const fetchProduct = createAsyncThunk<
@@ -25,6 +26,40 @@ export const fetchProduct = createAsyncThunk<
       if (response.status !== 200) throw new Error("Error!");
 
       return response.data;
+   } catch (error: any) {
+      return rejectWithValue(error.message);
+   }
+});
+
+// Async thunk to post a review and update product data
+export const postFetchReview = createAsyncThunk<
+   Review,
+   FetchProductArgs,
+   { rejectValue: string }
+>("productAbout/postReview", async ({ id, review }, { rejectWithValue }) => {
+   try {
+      // Fetch the current product data
+      const response = await axios.get(
+         `https://666a97c97013419182cff3dd.mockapi.io/new_arrivals/items/${id}`,
+      );
+
+      if (response.status !== 200) throw new Error("Error!");
+
+      const product = response.data;
+
+      // Add the new review to the product's reviews
+      product.reviews.push(review);
+
+      // Update the product data with the new review
+      const updateResponse = await axios.put(
+         `https://666a97c97013419182cff3dd.mockapi.io/new_arrivals/items/${id}`,
+         product,
+      );
+
+      if (updateResponse.status !== 200)
+         throw new Error("Failed to write a review...");
+
+      return updateResponse.data;
    } catch (error: any) {
       return rejectWithValue(error.message);
    }
@@ -102,6 +137,10 @@ const productAboutSlice = createSlice({
       setFormAuthor(state, action: PayloadAction<string>) {
          state.formAuthor = action.payload;
       },
+      // Add the review to the product's reviews
+      postReview(state, action) {
+         state.product?.reviews.push(action.payload);
+      },
       // Placeholder for adding product to cart
       addToCart(state, action) {},
       // Placeholder for removing product from cart
@@ -123,6 +162,20 @@ const productAboutSlice = createSlice({
          state.status = Status.REJECTED;
          state.error = action.payload ?? "Unknown error";
       });
+      // Handle pending state of postFetchReview
+      builder.addCase(postFetchReview.pending, state => {
+         state.status = Status.LOADING;
+         state.error = null;
+      });
+      // Handle successful postFetchReview
+      builder.addCase(postFetchReview.fulfilled, (state, action) => {
+         state.status = Status.SUCCESS;
+      });
+      // Handle failed postFetchReview
+      builder.addCase(postFetchReview.rejected, (state, action) => {
+         state.status = Status.REJECTED;
+         state.error = action.payload ?? "Unknown error";
+      });
    },
 });
 
@@ -140,6 +193,7 @@ export const {
    setFormText,
    setFormRating,
    setFormAuthor,
+   postReview,
    addToCart,
    removeFromCart,
 } = productAboutSlice.actions;
