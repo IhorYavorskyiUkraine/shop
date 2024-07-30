@@ -1,0 +1,55 @@
+.form {
+   position: fixed;
+   display: flex;
+   flex-direction: column;
+   padding: 2rem;
+   width: 37.5rem;
+   background: rgb(240, 240, 240);
+   border-radius: 1.25rem;
+   gap: 1rem;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   z-index: 1002;
+   input {
+      width: 100%;
+      padding: 0.75rem 1.25rem;
+      height: 32px;
+      background: #fff;
+      border-radius: 3.875rem;
+      font-family: "Satoshi-Regular";
+      &:focus {
+         outline: none;
+      }
+   }
+
+   textarea {
+      resize: none;
+      height: 7.5rem;
+      padding: 0.75rem 1.25rem;
+      border-radius: 1rem;
+      font-family: "Satoshi-Regular";
+      &:focus {
+         outline: none;
+      }
+   }
+
+   button {
+      display: inline-flex;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      background: #fff;
+      border-radius: 3.875rem;
+      transition: background 0.3s;
+      justify-content: center;
+      &:hover {
+         background: lighten(#000, 95%);
+      }
+      &:disabled {
+         background: lighten(#000, 95%);
+      }
+   }
+
+   p {
+      color: red;
+   }
+}

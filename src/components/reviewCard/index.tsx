@@ -67,8 +67,8 @@ export const ReviewCard: React.FC<Props> = ({ review, productReview }) => {
          </div>
          {/* Display review details */}
          <h4>{review.author}</h4>
-         <p className="text">"{review.review}"</p>
-         {productReview && <p className="text">{review.date}</p>}
+         <p className={styles.review}>"{review.review}"</p>
+         {productReview && <p className={styles.date}>{review.date}</p>}
       </div>
    );
 };

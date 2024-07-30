@@ -1,8 +1,10 @@
-import { Slider } from "./components/Slider";
+import React, { Suspense } from "react";
 
 import arr from "/images/happyCustomers/arr.svg";
 
 import styles from "./HappyCustomers.module.scss";
+
+const Slider = React.lazy(() => import("./components/Slider"));
 
 // Main component for displaying happy customers
 export const HappyCustomers: React.FC = () => {
@@ -33,7 +35,9 @@ export const HappyCustomers: React.FC = () => {
          </div>
          <div className={styles.slider}>
             {/* Slider component */}
-            <Slider />
+            <Suspense fallback={<div className="loader"></div>}>
+               <Slider />
+            </Suspense>
          </div>
       </section>
    );

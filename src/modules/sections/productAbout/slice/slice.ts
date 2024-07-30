@@ -80,6 +80,7 @@ const initialState: ProductAboutState = {
    formRating: 0, // Rating given in the review form
    formAuthor: "", // Author of the review
    formText: "", // Text of the review
+   visibleData: 6, // Number of visible data items
    status: Status.LOADING, // Status of the data fetching
    error: null, // Error message, if any
 };
@@ -141,6 +142,10 @@ const productAboutSlice = createSlice({
       postReview(state, action) {
          state.product?.reviews.push(action.payload);
       },
+      // Update the number of visible data items
+      setVisibleData(state, action: PayloadAction<number>) {
+         state.visibleData = action.payload;
+      },
       // Placeholder for adding product to cart
       addToCart(state, action) {},
       // Placeholder for removing product from cart
@@ -194,6 +199,7 @@ export const {
    setFormRating,
    setFormAuthor,
    postReview,
+   setVisibleData,
    addToCart,
    removeFromCart,
 } = productAboutSlice.actions;

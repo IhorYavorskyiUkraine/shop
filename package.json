@@ -18,6 +18,7 @@
     "@types/uuid": "^10.0.0",
     "aos": "^2.3.4",
     "axios": "^1.7.2",
+    "formik": "^2.4.6",
     "macro-css": "^1.0.5",
     "react": "^18.2.0",
     "react-content-loader": "^7.0.2",
@@ -29,7 +30,8 @@
     "sass": "^1.77.5",
     "swiper": "^11.1.4",
     "typescript": "^5.5.4",
-    "uuid": "^10.0.0"
+    "uuid": "^10.0.0",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",

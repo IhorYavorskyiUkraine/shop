@@ -15,7 +15,7 @@ import styles from "./Slider.module.scss";
 import "swiper/css";
 
 // Slider component displaying customer reviews
-export const Slider: React.FC = () => {
+const Slider: React.FC = () => {
    // Extracting reviews, status, and error from Redux state
    const { reviews, status, error } = useSelector(
       (state: RootState) => state.happyCustomersSlice,
@@ -56,3 +56,5 @@ export const Slider: React.FC = () => {
       </Swiper>
    );
 };
+
+export default Slider;

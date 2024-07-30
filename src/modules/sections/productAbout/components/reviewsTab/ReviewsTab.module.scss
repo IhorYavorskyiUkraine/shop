@@ -1,5 +1,5 @@
 .wrapper {
-   padding: 2.125rem 0rem;
+   padding-top: 2.125rem;
    h3 {
       font-size: 1.5rem;
       font-weight: 700;
@@ -35,8 +35,35 @@
    padding: 0.8125rem 1.25rem;
 }
 
+.loadMore {
+   button {
+      display: inline-flex;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      background: #fff;
+      border-radius: 3.875rem;
+      transition: background 0.3s;
+      &:hover {
+         background: lighten(#000, 95%);
+      }
+      &:disabled {
+         background: lighten(#000, 95%);
+      }
+   }
+}
+
 .reviews {
    display: grid;
    grid-template-columns: repeat(2, 38.125rem);
    gap: 1.25rem;
+   margin-bottom: 2.25rem;
+}
+
+.overlay {
+   position: fixed;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background: rgba(0, 0, 0, 0.5);
+   z-index: 1001;
 }

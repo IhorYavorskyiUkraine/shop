@@ -32,6 +32,7 @@ export interface ProductAboutState {
    formRating: number;
    formAuthor: string;
    formText: string;
+   visibleData: number;
    status: Status;
    error: string | null;
 }

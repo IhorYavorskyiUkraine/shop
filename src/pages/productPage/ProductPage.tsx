@@ -1,6 +1,6 @@
 import { Popup } from "../../components/popup";
 import { Header } from "../../components/header/Header";
-import { ProductAbout } from "../../modules/sections/productAbout";
+import { ProductAbout, YouMightAlsoLike } from "../../modules";
 
 import { Footer } from "../../components/footer/Footer";
 
@@ -20,6 +20,16 @@ const ProductPage: React.FC = () => {
             }
          >
             <ProductAbout />
+         </ErrorBoundary>
+         <ErrorBoundary
+            fallback={
+               <img
+                  className="errorBoundary"
+                  src="https://media1.tenor.com/m/ZvLReph5qCIAAAAC/skill-issue.gif"
+               />
+            }
+         >
+            <YouMightAlsoLike />
          </ErrorBoundary>
          <Footer />
       </div>

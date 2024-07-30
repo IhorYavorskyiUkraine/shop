@@ -5,8 +5,13 @@ import { SelectedFilter, Option } from "../../slice/types";
 import { ReviewCard } from "../../../../../components/reviewCard";
 import { ReviewForm } from "../reviewForm";
 import { CustomSelect } from "../../../../../components/customSelect";
+import { Button } from "../../../../../ui/button/Button";
 
-import { setSelectedFilter, setFormStatus } from "../../slice/slice";
+import {
+   setSelectedFilter,
+   setFormStatus,
+   setVisibleData,
+} from "../../slice/slice";
 
 import { selectorProductAbout } from "../../slice/slice";
 
@@ -14,7 +19,7 @@ import styles from "./ReviewsTab.module.scss";
 
 export const ReviewsTab: React.FC = () => {
    // Get the product details, selected filter, and form status from Redux store
-   const { product, selectedFilter, formStatus } =
+   const { product, selectedFilter, formStatus, visibleData, status } =
       useSelector(selectorProductAbout);
 
    const dispatch = useDispatch();
@@ -28,6 +33,15 @@ export const ReviewsTab: React.FC = () => {
    // Handle filter option change
    const handleChange = (option: SelectedFilter) => {
       dispatch(setSelectedFilter(option));
+   };
+
+   const loadMore = () => {
+      dispatch(setVisibleData(visibleData + 4));
+   };
+
+   const openReviewPopup = () => {
+      dispatch(setFormStatus(true)); // Remove lock class when menu is closed
+      document.body.classList.add("lock"); // Add lock class when menu is open
    };
 
    // Set default filter on component mount
@@ -79,32 +93,47 @@ export const ReviewsTab: React.FC = () => {
    }, [product?.reviews, selectedFilter]);
 
    return (
-      <div className={styles.wrapper}>
-         <div className={styles.top}>
-            <h3>
-               All Reviews<span>({product?.reviews.length})</span>
-            </h3>
-            <div className={styles.buttons}>
-               <CustomSelect
-                  options={options}
-                  selectedValue={selectedFilter}
-                  handleChange={handleChange}
-               />
-               <button
-                  onClick={() => dispatch(setFormStatus(true))}
-                  className={styles.writeBtn}
-               >
-                  Write a Review
-               </button>
-               {formStatus && <ReviewForm />}
+      <>
+         <div className={styles.wrapper}>
+            <div className={styles.top}>
+               <h3>
+                  All Reviews<span>({product?.reviews.length})</span>
+               </h3>
+               <div className={styles.buttons}>
+                  <CustomSelect
+                     options={options}
+                     selectedValue={selectedFilter}
+                     handleChange={handleChange}
+                  />
+                  {formStatus === false && (
+                     <button
+                        onClick={openReviewPopup}
+                        className={styles.writeBtn}
+                     >
+                        Write a Review
+                     </button>
+                  )}
+                  {formStatus && <ReviewForm />}
+               </div>
             </div>
+            <div className={styles.reviews}>
+               {/* Render sorted reviews */}
+               {sortedReviews.slice(0, visibleData).map(review => (
+                  <ReviewCard key={review.id} review={review} productReview />
+               ))}
+            </div>
+            {/* Show load more button if there are more reviews to load */}
+            {visibleData < sortedReviews.length && (
+               <div className={`d-flex justify-center ${styles.loadMore}`}>
+                  <Button
+                     disabled={status === "loading"}
+                     onClick={loadMore}
+                     text="Load More Reviews"
+                  />
+               </div>
+            )}
          </div>
-         <div className={styles.reviews}>
-            {/* Render sorted reviews */}
-            {sortedReviews.map(review => (
-               <ReviewCard key={review.id} review={review} productReview />
-            ))}
-         </div>
-      </div>
+         {formStatus && <div className={styles.overlay}></div>}
+      </>
    );
 };
