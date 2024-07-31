@@ -5,7 +5,7 @@ export type FetchProductArgs = {
    id: string;
    review?: Review;
 };
-export type Sizes = "" | "s" | "m" | "l" | "xl";
+export type Sizes = "s" | "m" | "l" | "xl" | string;
 export type ActiveTab =
    | "Product Details"
    | "Rating & Reviews"

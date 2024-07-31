@@ -18,7 +18,8 @@ export function SizeSelector() {
 
    // Reset selected size when the product changes
    useEffect(() => {
-      dispatch(setSelectedSize(""));
+      if (!product) return;
+      dispatch(setSelectedSize(product?.options.size[0]));
    }, [product, dispatch]);
 
    // Handle size button click to update selected size

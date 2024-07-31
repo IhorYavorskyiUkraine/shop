@@ -1,11 +1,13 @@
 import { useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { useAppDispatch } from "./store";
 import aos from "aos";
 
 import "aos/dist/aos.css";
 import "./App.scss";
 
-import { HomePage, ProductPage, NotFoundPage } from "./pages";
+import { HomePage, ProductPage, CartPage, NotFoundPage } from "./pages";
+import { fetchCartProducts } from "./modules/sections/yourCart/slice/slice";
 
 const router = createBrowserRouter([
    {
@@ -48,11 +50,11 @@ const router = createBrowserRouter([
    //       element: <BrandsPage />,
    //       errorElement: <NotFoundPage />,
    //    },
-   //    {
-   //       path: "/cart",
-   //       element: <CartPage />,
-   //       errorElement: <NotFoundPage />,
-   //    },
+   {
+      path: "/cart",
+      element: <CartPage />,
+      errorElement: <NotFoundPage />,
+   },
    //    ,
    //    {
    //       path: "/account",
@@ -62,8 +64,11 @@ const router = createBrowserRouter([
 ]);
 
 const App = (): JSX.Element => {
+   const dispatch = useAppDispatch();
+
    useEffect(() => {
       aos.init();
+      dispatch(fetchCartProducts());
    }, []);
    return <RouterProvider router={router} />;
 };

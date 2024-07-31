@@ -6,3 +6,4 @@ export * from "./sections/browseStyle";
 export * from "./sections/happyCustomers";
 export * from "./sections/productAbout";
 export * from "./sections/youMightAlsoLike";
+export * from "./sections/yourCart";

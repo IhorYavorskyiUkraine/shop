@@ -1,20 +1,28 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import { BurgerMenu } from "./components/burgerMenu";
 import { SearchInput } from "./components/searchInput";
 
 import arrow from "/images/header/arrow.svg";
-import searchInput from "/images/header/searchInput.svg";
-import cart from "/images/header/cart.svg";
+import searchInputImg from "/images/header/searchInput.svg";
+import cartImg from "/images/header/cart.svg";
 import user from "/images/header/user.svg";
 
 import styles from "./Header.module.scss";
+import { RootState } from "../../store";
+import { setDropdownStatus } from "./slice/slice";
+import { setSearchInput } from "./slice/slice";
 
 // Header component with navigation, search, and icons
 export const Header: React.FC = () => {
-   const [dropdown, setDropdown] = useState(false); // State for dropdown menu visibility
-   const [input, setInput] = useState(""); // State for search input value
+   const { cart } = useSelector((state: RootState) => state.yourCartSlice);
+   const { dropdownStatus, searchInput } = useSelector(
+      (state: RootState) => state.HeaderSlice,
+   );
+
+   const dispatch = useDispatch();
 
    const menuRef = useRef<HTMLUListElement>(null); // Ref for dropdown menu container
 
@@ -25,7 +33,7 @@ export const Header: React.FC = () => {
          e.target instanceof Node &&
          !menuRef.current.contains(e.target)
       ) {
-         setDropdown(false);
+         dispatch(setDropdownStatus(false));
       }
    };
 
@@ -49,12 +57,16 @@ export const Header: React.FC = () => {
                   <nav>
                      <ul className={styles.list}>
                         <li>
-                           <button onClick={() => setDropdown(!dropdown)}>
+                           <button
+                              onClick={() =>
+                                 dispatch(setDropdownStatus(!dropdownStatus))
+                              }
+                           >
                               Shop
                               {/* Toggle dropdown icon rotation */}
                               <img
                                  style={
-                                    dropdown
+                                    dropdownStatus
                                        ? { transform: "rotate(180deg)" }
                                        : undefined
                                  }
@@ -75,11 +87,11 @@ export const Header: React.FC = () => {
                      </ul>
                   </nav>
                   <form className={styles.form}>
-                     <img src={searchInput} alt="searchInput" />{" "}
+                     <img src={searchInputImg} alt="searchInput" />{" "}
                      {/* Search input icon */}
                      <input
-                        value={input}
-                        onChange={e => setInput(e.target.value)} // Update search input value
+                        value={searchInput}
+                        onChange={e => dispatch(setSearchInput(e.target.value))} // Update search input value
                         type="text"
                         placeholder="Search for products..."
                      />
@@ -88,7 +100,8 @@ export const Header: React.FC = () => {
                   <div className={styles.icons}>
                      <SearchInput /> {/* Additional search input component */}
                      <Link to="/cart">
-                        <img src={cart} alt="cart" />{" "}
+                        <img src={cartImg} alt="cartImg" />
+                        <span>{cart.length}</span>
                         {/* Cart icon linking to cart page */}
                      </Link>
                      <Link to="/user">
@@ -99,7 +112,7 @@ export const Header: React.FC = () => {
                </div>
             </div>
             {/* Dropdown menu for 'Shop' button */}
-            {dropdown && (
+            {dropdownStatus && (
                <ul ref={menuRef} className={styles.dropdown}>
                   <li>
                      <Link to="/shop">All</Link>
@@ -117,7 +130,7 @@ export const Header: React.FC = () => {
             )}
          </header>
          {/* Overlay to cover the rest of the page when dropdown is active */}
-         {dropdown && <div className={styles.overlay}></div>}
+         {dropdownStatus && <div className={styles.overlay}></div>}
       </>
    );
 };

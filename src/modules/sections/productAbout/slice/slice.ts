@@ -11,6 +11,7 @@ import {
 } from "./types";
 import { Product, Status } from "../../newArrivals/slice/types";
 import { Review } from "../../newArrivals/slice/types";
+import { CartProduct } from "../../yourCart/slice/types";
 
 // Async thunk to fetch product details by ID
 export const fetchProduct = createAsyncThunk<
@@ -36,34 +37,59 @@ export const postFetchReview = createAsyncThunk<
    Review,
    FetchProductArgs,
    { rejectValue: string }
->("productAbout/postReview", async ({ id, review }, { rejectWithValue }) => {
-   try {
-      // Fetch the current product data
-      const response = await axios.get(
-         `https://666a97c97013419182cff3dd.mockapi.io/new_arrivals/items/${id}`,
-      );
+>(
+   "productAbout/postFetchReview",
+   async ({ id, review }, { rejectWithValue }) => {
+      try {
+         // Fetch the current product data
+         const response = await axios.get(
+            `https://666a97c97013419182cff3dd.mockapi.io/new_arrivals/items/${id}`,
+         );
 
-      if (response.status !== 200) throw new Error("Error!");
+         if (response.status !== 200) throw new Error("Error!");
 
-      const product = response.data;
+         const product = response.data;
 
-      // Add the new review to the product's reviews
-      product.reviews.push(review);
+         // Add the new review to the product's reviews
+         product.reviews.push(review);
 
-      // Update the product data with the new review
-      const updateResponse = await axios.put(
-         `https://666a97c97013419182cff3dd.mockapi.io/new_arrivals/items/${id}`,
-         product,
-      );
+         // Update the product data with the new review
+         const updateResponse = await axios.put(
+            `https://666a97c97013419182cff3dd.mockapi.io/new_arrivals/items/${id}`,
+            product,
+         );
 
-      if (updateResponse.status !== 200)
-         throw new Error("Failed to write a review...");
+         if (updateResponse.status !== 200)
+            throw new Error("Failed to write a review...");
 
-      return updateResponse.data;
-   } catch (error: any) {
-      return rejectWithValue(error.message);
-   }
-});
+         return updateResponse.data;
+      } catch (error: any) {
+         return rejectWithValue(error.message);
+      }
+   },
+);
+
+export const postAddToCart = createAsyncThunk<
+   CartProduct[],
+   CartProduct,
+   { rejectValue: string }
+>(
+   "productAbout/postAddToCart",
+   async ({ ...productObj }, { rejectWithValue }) => {
+      try {
+         const response = await axios.post(
+            `https://66a9f668613eced4eba6fbec.mockapi.io/cart/items`,
+            productObj,
+         );
+
+         if (response.status !== 200) throw new Error("Error!");
+
+         return response.data;
+      } catch (error: any) {
+         return rejectWithValue(error.message);
+      }
+   },
+);
 
 // Initial state for the productAbout slice
 const initialState: ProductAboutState = {
@@ -146,8 +172,6 @@ const productAboutSlice = createSlice({
       setVisibleData(state, action: PayloadAction<number>) {
          state.visibleData = action.payload;
       },
-      // Placeholder for adding product to cart
-      addToCart(state, action) {},
       // Placeholder for removing product from cart
       removeFromCart(state, action) {},
    },
@@ -181,6 +205,17 @@ const productAboutSlice = createSlice({
          state.status = Status.REJECTED;
          state.error = action.payload ?? "Unknown error";
       });
+      builder.addCase(postAddToCart.pending, state => {
+         state.status = Status.LOADING;
+         state.error = null;
+      });
+      builder.addCase(postAddToCart.fulfilled, (state, action) => {
+         state.status = Status.SUCCESS;
+      });
+      builder.addCase(postAddToCart.rejected, (state, action) => {
+         state.status = Status.REJECTED;
+         state.error = action.payload ?? "Unknown error";
+      });
    },
 });
 
@@ -200,7 +235,6 @@ export const {
    setFormAuthor,
    postReview,
    setVisibleData,
-   addToCart,
    removeFromCart,
 } = productAboutSlice.actions;
 

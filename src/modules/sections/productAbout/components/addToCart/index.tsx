@@ -1,15 +1,26 @@
 import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { useAppDispatch } from "../../../../../store";
+import { useParams } from "react-router-dom";
 
 import { setQuantity } from "../../slice/slice";
 import { selectorProductAbout } from "../../slice/slice";
+
+import { addToCart } from "../../../yourCart/slice/slice";
+import { postAddToCart } from "../../slice/slice";
+
+import { CartProduct } from "../../../yourCart/slice/types";
 
 import styles from "./AddToCart.module.scss";
 
 export const AddToCart: React.FC = () => {
    // Retrieve current quantity from Redux store
-   const { quantity } = useSelector(selectorProductAbout);
-   const dispatch = useDispatch();
+   const { product, quantity, selectedSize, color, activeIndex } =
+      useSelector(selectorProductAbout);
+
+   const dispatch = useAppDispatch();
+
+   const { id } = useParams();
 
    // Decrease quantity if greater than 0
    const handleDecrement = () => {
@@ -21,9 +32,38 @@ export const AddToCart: React.FC = () => {
       dispatch(setQuantity(quantity + 1));
    };
 
-   // Set quantity based on input change
-   const handleChange = (e: number) => {
-      dispatch(setQuantity(e));
+   const addToProductsCart = async () => {
+      if (quantity === 0) {
+         dispatch(setQuantity(1));
+      }
+
+      if (id && product) {
+         const name = product?.name ?? "";
+         const price = product?.price ?? 0;
+         const oldPrice = product?.oldPrice ?? 0;
+         const discount = product?.discount ?? false;
+         const image = product?.options.colors[activeIndex]?.images[0] ?? "";
+         const size = (selectedSize || product?.options.size[0]) ?? "";
+         const productColor =
+            (color || product?.options.colors[0]?.color) ?? "";
+
+         const productObj: CartProduct = {
+            realId: id,
+            id: id,
+            name,
+            price,
+            oldPrice,
+            discount,
+            image,
+            size,
+            color: productColor,
+            quantity: quantity || 1,
+         };
+         try {
+            dispatch(addToCart(productObj));
+            await dispatch(postAddToCart(productObj));
+         } catch {}
+      }
    };
 
    // Initialize quantity to 0 on component mount
@@ -44,7 +84,9 @@ export const AddToCart: React.FC = () => {
                onClick={handleIncrement}
             ></button>
          </div>
-         <button className={styles.addToCart}>Add to Cart</button>
+         <button className={styles.addToCart} onClick={addToProductsCart}>
+            Add to Cart
+         </button>
       </div>
    );
 };
