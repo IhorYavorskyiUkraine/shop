@@ -1,8 +1,8 @@
 import { Status } from "../../newArrivals/slice/types";
 
 export type CartProduct = {
-   realId: number | string;
-   id: number | string;
+   realId: string;
+   id: string;
    name: string;
    price: number;
    oldPrice: number;

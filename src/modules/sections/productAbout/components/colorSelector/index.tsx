@@ -18,6 +18,7 @@ export const ColorSelector: React.FC = () => {
       if (colors) {
          dispatch(setColorList(colors));
          dispatch(setActiveIndex(0));
+         dispatch(setColor(colors[0]));
       }
    }, [product, dispatch]);
 

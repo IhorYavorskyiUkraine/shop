@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useAppDispatch } from "../../../../../store";
+import { RootState, useAppDispatch } from "../../../../../store";
 import { useParams } from "react-router-dom";
 
 import { setQuantity } from "../../slice/slice";
@@ -17,6 +17,8 @@ export const AddToCart: React.FC = () => {
    // Retrieve current quantity from Redux store
    const { product, quantity, selectedSize, color, activeIndex } =
       useSelector(selectorProductAbout);
+
+   const { cart } = useSelector((state: RootState) => state.yourCartSlice);
 
    const dispatch = useAppDispatch();
 
@@ -59,10 +61,25 @@ export const AddToCart: React.FC = () => {
             color: productColor,
             quantity: quantity || 1,
          };
+
+         const isProductInCart = cart.some(
+            item =>
+               item.realId === productObj.realId &&
+               item.color === productObj.color &&
+               item.size === productObj.size,
+         );
+
+         if (isProductInCart) {
+            alert("Товар уже добавлен в корзину");
+            return;
+         }
+
          try {
             dispatch(addToCart(productObj));
             await dispatch(postAddToCart(productObj));
-         } catch {}
+         } catch {
+            alert("Произошла ошибка при добавлении в корзину");
+         }
       }
    };
 
