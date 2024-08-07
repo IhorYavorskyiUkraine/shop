@@ -94,7 +94,11 @@ export const ReviewsTab: React.FC = () => {
 
    return (
       <>
-         <div className={styles.wrapper}>
+         <div
+            className={styles.wrapper}
+            data-aos="fade-up"
+            data-aos-duration="500"
+         >
             <div className={styles.top}>
                <h3>
                   All Reviews<span>({product?.reviews.length})</span>

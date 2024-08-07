@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { SelectedFilter } from "../../modules/sections/productAbout/slice/types";
 import { Option } from "../../modules/sections/productAbout/slice/types";
 
+import filterIcon from "/images/productAbout/filterIcon.svg";
 import arrow from "/images/productAbout/arrow.svg";
 
 import styles from "./CustomSelect.module.scss";
@@ -64,6 +65,11 @@ export const CustomSelect: React.FC<Props> = ({
                style={isOpen ? { transform: "rotate(180deg)" } : {}}
                src={arrow}
                alt="arrow"
+            />
+            <img
+               className={styles.filterIcon}
+               src={filterIcon}
+               alt="filterIcon"
             />
          </div>
          {/* Dropdown options */}

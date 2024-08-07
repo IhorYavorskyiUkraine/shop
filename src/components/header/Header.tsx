@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
-import { useEffect, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 
 import { BurgerMenu } from "./components/burgerMenu";
 import { SearchInput } from "./components/searchInput";
+import { Input } from "../../ui/input/Input";
+
+import { RootState } from "../../store";
 
 import arrow from "/images/header/arrow.svg";
 import searchInputImg from "/images/header/searchInput.svg";
@@ -11,18 +14,12 @@ import cartImg from "/images/header/cart.svg";
 import user from "/images/header/user.svg";
 
 import styles from "./Header.module.scss";
-import { RootState } from "../../store";
-import { setDropdownStatus } from "./slice/slice";
-import { setSearchInput } from "./slice/slice";
 
 // Header component with navigation, search, and icons
 export const Header: React.FC = () => {
    const { cart } = useSelector((state: RootState) => state.yourCartSlice);
-   const { dropdownStatus, searchInput } = useSelector(
-      (state: RootState) => state.HeaderSlice,
-   );
 
-   const dispatch = useDispatch();
+   const [dropdownStatus, setDropdownStatus] = useState(false);
 
    const menuRef = useRef<HTMLUListElement>(null); // Ref for dropdown menu container
 
@@ -33,7 +30,7 @@ export const Header: React.FC = () => {
          e.target instanceof Node &&
          !menuRef.current.contains(e.target)
       ) {
-         dispatch(setDropdownStatus(false));
+         setDropdownStatus(false);
       }
    };
 
@@ -58,9 +55,7 @@ export const Header: React.FC = () => {
                      <ul className={styles.list}>
                         <li>
                            <button
-                              onClick={() =>
-                                 dispatch(setDropdownStatus(!dropdownStatus))
-                              }
+                              onClick={() => setDropdownStatus(!dropdownStatus)}
                            >
                               Shop
                               {/* Toggle dropdown icon rotation */}
@@ -86,17 +81,20 @@ export const Header: React.FC = () => {
                         </li>
                      </ul>
                   </nav>
-                  <form className={styles.form}>
+                  <Input
+                     img={searchInputImg}
+                     className="searchInput"
+                     placeholder="Search for products..."
+                  />
+                  {/* <form className={styles.form}>
                      <img src={searchInputImg} alt="searchInput" />{" "}
-                     {/* Search input icon */}
                      <input
                         value={searchInput}
-                        onChange={e => dispatch(setSearchInput(e.target.value))} // Update search input value
+                        onChange={e => dispatch(setSearchInput(e.target.value))}
                         type="text"
                         placeholder="Search for products..."
                      />
-                     {/* Search suggestions list (currently commented out) */}
-                  </form>
+                  </form> */}
                   <div className={styles.icons}>
                      <SearchInput /> {/* Additional search input component */}
                      <Link to="/cart">

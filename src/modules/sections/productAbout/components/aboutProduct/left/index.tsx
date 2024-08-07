@@ -22,7 +22,11 @@ export const Left: React.FC = () => {
    }, [dispatch]);
 
    return (
-      <div className={styles.wrapper}>
+      <div
+         className={styles.wrapper}
+         data-aos="fade-right"
+         data-aos-duration="500"
+      >
          <div className={styles.side}>
             {/* Render thumbnail images and handle click events to update the active image */}
             {images?.map((image, i) => (

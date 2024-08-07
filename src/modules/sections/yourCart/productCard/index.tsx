@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../../../store";
 
 import { deleteFromCart } from "../slice/slice";
 import { setQuantity } from "../../productAbout/slice/slice";
 import { fetchDeleteProduct } from "../slice/slice";
+import { putQuantity } from "../slice/slice";
 
-import { RootState } from "../../../../store";
 import { Sizes } from "../../productAbout/slice/types";
 
 import deleteImg from "/images/yourCart/img.svg";
@@ -48,6 +47,7 @@ export const ProductCard: React.FC<Props> = ({
          const newQuantity = localQuantity - 1;
          setLocalQuantity(newQuantity);
          dispatch(setQuantity(newQuantity));
+         dispatch(putQuantity({ id, quantity: newQuantity }));
       } else {
          dispatch(deleteFromCart({ realId, color, size }));
          dispatch(fetchDeleteProduct({ id, realId, color, size }));
@@ -71,6 +71,7 @@ export const ProductCard: React.FC<Props> = ({
       const newQuantity = localQuantity + 1;
       setLocalQuantity(newQuantity);
       dispatch(setQuantity(newQuantity));
+      dispatch(putQuantity({ id, quantity: newQuantity }));
    };
 
    return (
@@ -79,30 +80,34 @@ export const ProductCard: React.FC<Props> = ({
             <img src={image} alt="productImage" />
          </div>
          <div className={styles.info}>
-            <h3>{name}</h3>
+            <div className={styles.top}>
+               <h3>{name}</h3>
+               <button
+                  onClick={() => id && deleteProduct(id, realId, color, size)}
+                  className={styles.delete}
+               >
+                  <img src={deleteImg} alt="deleteImg" />
+               </button>
+            </div>
             <p>Size: {size}</p>
             <p>
                Color: <span style={{ backgroundColor: color }}></span>
             </p>
-            <p className={styles.price}>${price}</p>
-         </div>
-         <div className={styles.actions}>
-            <button
-               onClick={() => id && deleteProduct(id, realId, color, size)}
-               className={styles.delete}
-            >
-               <img src={deleteImg} alt="deleteImg" />
-            </button>
-            <div className={styles.quantity}>
-               <button
-                  className={styles.decrement}
-                  onClick={() => id && handleDecrement(id, realId, color, size)}
-               ></button>
-               <p>{localQuantity}</p>
-               <button
-                  className={styles.increment}
-                  onClick={handleIncrement}
-               ></button>
+            <div className={styles.bottom}>
+               <p className={styles.price}>${price}</p>
+               <div className={styles.quantity}>
+                  <button
+                     className={styles.decrement}
+                     onClick={() =>
+                        id && handleDecrement(id, realId, color, size)
+                     }
+                  ></button>
+                  <p>{localQuantity}</p>
+                  <button
+                     className={styles.increment}
+                     onClick={handleIncrement}
+                  ></button>
+               </div>
             </div>
          </div>
       </div>

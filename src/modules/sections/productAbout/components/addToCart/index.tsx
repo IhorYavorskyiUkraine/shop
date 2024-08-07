@@ -12,6 +12,7 @@ import { postAddToCart } from "../../slice/slice";
 import { CartProduct } from "../../../yourCart/slice/types";
 
 import styles from "./AddToCart.module.scss";
+import { Button } from "../../../../../ui/button/Button";
 
 export const AddToCart: React.FC = () => {
    // Retrieve current quantity from Redux store
@@ -101,9 +102,11 @@ export const AddToCart: React.FC = () => {
                onClick={handleIncrement}
             ></button>
          </div>
-         <button className={styles.addToCart} onClick={addToProductsCart}>
-            Add to Cart
-         </button>
+         <Button
+            text="Add to Cart"
+            className="addToCart"
+            onClick={addToProductsCart}
+         ></Button>
       </div>
    );
 };

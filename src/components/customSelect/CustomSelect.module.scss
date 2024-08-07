@@ -8,15 +8,32 @@
    align-self: flex-start;
    line-height: 1.375rem;
    cursor: pointer;
+   @media (max-width: 48rem) {
+      border-radius: 50%;
+      padding: 10px 9px;
+   }
 }
 
 .selectSelected {
    display: flex;
    align-items: center;
    gap: 0.625rem;
+   @media (max-width: 48rem) {
+      span,
+      img {
+         display: none;
+      }
+   }
    span {
       font-weight: 500;
       font-family: "Satoshi-Bold";
+   }
+}
+
+.filterIcon {
+   display: none;
+   @media (max-width: 48rem) {
+      display: block !important;
    }
 }
 

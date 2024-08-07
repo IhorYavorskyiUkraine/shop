@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { useAppDispatch } from "./store";
+import { useSelector } from "react-redux";
+import { RootState, useAppDispatch } from "./store";
 import aos from "aos";
 
 import "aos/dist/aos.css";
@@ -64,6 +65,8 @@ const router = createBrowserRouter([
 ]);
 
 const App = (): JSX.Element => {
+   const { cart } = useSelector((state: RootState) => state.yourCartSlice);
+
    const dispatch = useAppDispatch();
 
    useEffect(() => {

@@ -44,6 +44,7 @@ export type Product = {
    rating: number;
    discount: boolean;
    price: number;
+   quantity?: number;
    oldPrice: number;
    options: Options;
    reviews: Review[];

@@ -14,7 +14,11 @@ export const Right: React.FC = () => {
    const { product, status, error } = useSelector(selectorProductAbout);
 
    return (
-      <div className={styles.wrapper}>
+      <div
+         className={styles.wrapper}
+         data-aos="fade-left"
+         data-aos-duration="500"
+      >
          <div className={styles.info}>
             {/* Display the product name */}
             <h1 className="title">{product?.name}</h1>

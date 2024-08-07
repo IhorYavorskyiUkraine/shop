@@ -1,7 +1,17 @@
 .aboutProduct {
-   display: flex;
+   display: grid;
+   grid-template-columns: 38.125rem minmax(20rem, 36.875rem);
    gap: 2.5rem;
    padding: 24px 0rem;
+   @media (max-width: 64rem) {
+      grid-template-columns: 27.75rem minmax(20rem, 36.875rem);
+      gap: 1rem;
+   }
+   @media (max-width: 48rem) {
+      grid-template-columns: 1fr;
+   }
+   @media (max-width: 30rem) {
+   }
 }
 
 .buttons {
@@ -9,8 +19,10 @@
    grid-template-columns: repeat(3, 1fr);
    button {
       position: relative;
-      padding-bottom: 1.5rem;
+      padding-bottom: 0.7rem;
       border-bottom: 1px solid rgb(0, 0, 0, 0.1);
+      @media (max-width: 30rem) {
+      }
    }
 }
 

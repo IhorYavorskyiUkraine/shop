@@ -1,6 +1,13 @@
 .content {
    display: grid;
-   grid-template-columns: 44.6875rem 31.5rem;
+   grid-template-columns: minmax(33.6875rem, 44.6875rem) minmax(18rem, 31.5rem);
    justify-content: space-between;
    padding: 1.5rem 0rem 5rem 0rem;
+   gap: 0.5rem;
+   @media (max-width: 54rem) {
+      grid-template-columns: 1fr;
+   }
+   @media (max-width: 48rem) {
+      padding: 1.25rem 0rem 3.125rem 0rem;
+   }
 }

@@ -12,7 +12,11 @@ export const ProductDetails: React.FC = () => {
    const productDetails = product?.productDetails;
 
    return (
-      <div className={styles.wrapper}>
+      <div
+         className={styles.wrapper}
+         data-aos="fade-up"
+         data-aos-duration="500"
+      >
          <h3>Product Details</h3>
          <dl>
             {/* Render product details if available */}

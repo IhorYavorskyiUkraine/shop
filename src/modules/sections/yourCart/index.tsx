@@ -1,21 +1,18 @@
 import { ProductsList } from "./productsList";
 import { OrderSummary } from "./orderSummary";
-
-import { RootState } from "../../../store";
-import { useSelector } from "react-redux";
+import { Breadcrumbs } from "../../../components/breadCrumbs";
 
 import styles from "./YourCart.module.scss";
 
 export const YourCart: React.FC = () => {
-   const { cart } = useSelector((state: RootState) => state.yourCartSlice);
-
    return (
       <div className={styles.wrapper}>
          <div className="container">
+            <Breadcrumbs />
             <h2 className="title">Your Cart</h2>
             <div className={styles.content}>
-               <ProductsList cart={cart} />
-               <OrderSummary cart={cart} />
+               <ProductsList />
+               <OrderSummary />
             </div>
          </div>
       </div>

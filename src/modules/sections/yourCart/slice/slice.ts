@@ -42,6 +42,39 @@ export const fetchDeleteProduct = createAsyncThunk<
    },
 );
 
+export const putQuantity = createAsyncThunk<
+   CartProduct,
+   { id: string; quantity: number },
+   { rejectValue: string }
+>("productAbout/putQuantity", async ({ id, quantity }, { rejectWithValue }) => {
+   try {
+      // Fetch the current product data
+      const response = await axios.get(
+         `https://66a9f668613eced4eba6fbec.mockapi.io/cart/items/${id}`,
+      );
+
+      if (response.status !== 200) throw new Error("Error!");
+
+      const product = response.data;
+
+      // Add the new review to the product's reviews
+      product.quantity = quantity;
+
+      // Update the product data with the new review
+      const updateResponse = await axios.put(
+         `https://66a9f668613eced4eba6fbec.mockapi.io/cart/items/${id}`,
+         product,
+      );
+
+      if (updateResponse.status !== 200)
+         throw new Error("Failed to write a review...");
+
+      return updateResponse.data;
+   } catch (error: any) {
+      return rejectWithValue(error.message);
+   }
+});
+
 const initialState: YourCartState = {
    cart: [],
    status: Status.LOADING,
@@ -105,6 +138,22 @@ const yourCartSlice = createSlice({
          },
       );
       builder.addCase(fetchDeleteProduct.rejected, (state, action) => {
+         state.status = Status.REJECTED;
+         state.error = action.payload ?? "Unknown error";
+      });
+      builder.addCase(putQuantity.pending, state => {
+         state.status = Status.LOADING;
+         state.error = null;
+      });
+      builder.addCase(putQuantity.fulfilled, (state, action) => {
+         state.status = Status.SUCCESS;
+         state.cart = state.cart.map(product =>
+            product.id === action.payload.id
+               ? { ...product, quantity: action.payload.quantity }
+               : product,
+         );
+      });
+      builder.addCase(putQuantity.rejected, (state, action) => {
          state.status = Status.REJECTED;
          state.error = action.payload ?? "Unknown error";
       });

@@ -1,5 +1,92 @@
 .wrapper {
    border: 1px solid rgba(0, 0, 0, 0.1);
    border-radius: 20px;
-   padding: 0rem 1.25rem;
+   padding: 1.25rem 1.5rem;
+   max-height: 404px;
+   h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      line-height: 2rem;
+      margin-bottom: 1.5rem;
+   }
+
+   ul {
+      padding-bottom: 0.875rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      li {
+         color: rgba(0, 0, 0, 0.6);
+         font-size: 1.25rem;
+         line-height: 1.6875rem;
+         display: flex;
+         justify-content: space-between;
+         &:not(:last-child) {
+            margin-bottom: 0.3125rem;
+         }
+         span {
+            color: rgba(0, 0, 0, 1);
+            font-weight: 700;
+            line-height: 2rem;
+         }
+      }
+   }
+
+   h4 {
+      padding-top: 0.875rem;
+      font-size: 1.25rem;
+      line-height: 1.6875rem;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      span {
+         color: rgba(0, 0, 0, 1);
+         font-weight: 700;
+         line-height: 2rem;
+      }
+   }
+}
+
+.promo {
+   display: grid;
+   grid-template-columns: minmax(8rem, 50em) 7.5rem;
+   justify-content: space-between;
+   gap: 0.75rem;
+   margin-bottom: 1.5rem;
+   button {
+      padding: 0.75rem 1rem !important;
+      background: #000;
+      justify-content: center;
+      span {
+         color: #fff;
+         &:hover {
+            transition: color 0.3s;
+            color: darken(#fff, 20%);
+         }
+      }
+   }
+}
+
+.checkout {
+   width: 100%;
+   background: #000;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 0.875rem;
+   span {
+      color: #fff;
+   }
+   &:hover {
+      span {
+         transition: color 0.3s;
+         color: darken(#fff, 20%);
+      }
+      img {
+         transition: transform 0.3s;
+         transform: translateX(5px);
+      }
+   }
+}
+
+.discount {
+   color: rgb(255, 51, 51) !important;
 }

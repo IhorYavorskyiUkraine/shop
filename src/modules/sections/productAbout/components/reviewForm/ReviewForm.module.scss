@@ -1,9 +1,10 @@
 .form {
    position: fixed;
-   display: flex;
+   display: grid;
    flex-direction: column;
    padding: 2rem;
-   width: 37.5rem;
+   // width: 37.5rem;
+   grid-template-columns: minmax(300px, 600px);
    background: rgb(240, 240, 240);
    border-radius: 1.25rem;
    gap: 1rem;

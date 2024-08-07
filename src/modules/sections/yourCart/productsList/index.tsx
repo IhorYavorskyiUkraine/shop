@@ -1,19 +1,23 @@
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../store";
 import { ProductCard } from "../productCard";
 import { CartProduct } from "../slice/types";
 
 import styles from "./ProductsList.module.scss";
 
-type Props = {
-   cart: CartProduct[];
-};
+export const ProductsList: React.FC = () => {
+   const { cart } = useSelector((state: RootState) => state.yourCartSlice);
 
-export const ProductsList: React.FC<Props> = ({ cart }) => {
    return (
-      <div className={styles.wrapper}>
+      <div
+         className={styles.wrapper}
+         data-aos="fade-right"
+         data-aos-duration="500"
+      >
          {cart.length === 0 && <div>CART IS EMPTY</div>}
          {cart.length > 0 && (
             <div className={styles.items}>
-               {cart.map(item => (
+               {cart.map((item: CartProduct) => (
                   <ProductCard key={item.id} {...item} />
                ))}
             </div>
