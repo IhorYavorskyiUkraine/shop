@@ -11,7 +11,7 @@ type Props = {
    price: number; // Price of the item
    rating: number; // Rating of the item (out of 5)
    duration: number; // Animation duration (in milliseconds)
-   category: string; // Category of the item for routing
+   category?: string; // Category of the item for routing
 };
 
 // Card component
@@ -22,14 +22,13 @@ export const Card: React.FC<Props> = ({
    rating,
    id,
    duration,
-   category,
 }) => {
    return (
       <Link
          data-aos="fade-up" // Animation on scroll
          data-aos-duration={duration} // Duration of the animation
          className={styles.link} // Style for the link
-         to={`/${category}/${id}`} // Dynamic route based on category and id
+         to={`/${id}`} // Dynamic route based on category and id
       >
          <div className={styles.wrapper}>
             <div className={styles.image}>

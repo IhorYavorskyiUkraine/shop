@@ -90,9 +90,7 @@ export const ProductCard: React.FC<Props> = ({
                </button>
             </div>
             <p>Size: {size}</p>
-            <p>
-               Color: <span style={{ backgroundColor: color }}></span>
-            </p>
+            <p>Color: {color}</p>
             <div className={styles.bottom}>
                <p className={styles.price}>${price}</p>
                <div className={styles.quantity}>

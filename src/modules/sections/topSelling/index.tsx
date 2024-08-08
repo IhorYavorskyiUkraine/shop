@@ -59,7 +59,6 @@ export const TopSelling: React.FC = () => {
                         <Card
                            key={item.id}
                            duration={300 + i * 100}
-                           category="top_selling"
                            {...item}
                         />
                      ))

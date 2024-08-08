@@ -53,7 +53,6 @@ export const NewArrivals: React.FC = () => {
                         <Card
                            key={item.id}
                            duration={300 + i * 100} // Animation duration with staggered effect
-                           category="new_arrivals"
                            {...item}
                         />
                      ))

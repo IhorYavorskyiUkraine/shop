@@ -78,7 +78,7 @@ export const Footer: React.FC = () => {
    ];
 
    return (
-      <footer data-aos="fade-right" data-aos-duration="500">
+      <footer data-aos="fade-right" data-aos-duration="500" data-aos-once>
          <div className="container">
             <div className={styles.wrapper}>
                <div className={styles.footerTop}>
