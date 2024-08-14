@@ -48,6 +48,7 @@ export type Product = {
    oldPrice: number;
    options: Options;
    reviews: Review[];
+   category: string;
 };
 
 export interface NewArrivalsState {

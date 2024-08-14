@@ -211,3 +211,12 @@ h6 {
       display: none !important;
    }
 }
+
+.apply {
+   background: #000;
+   color: #fff;
+   &:hover {
+      transition: color 0.3s;
+      color: darken(#fff, 20%);
+   }
+}

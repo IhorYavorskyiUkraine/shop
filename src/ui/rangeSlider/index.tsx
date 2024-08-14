@@ -14,7 +14,7 @@ type Props = {
    isShowTooltip?: boolean;
    max: number;
    min: number;
-   onChange?: Dispatch<SetStateAction<number[]>>;
+   onChange?: (value: number[]) => void;
    step: number;
    value: number[];
 };

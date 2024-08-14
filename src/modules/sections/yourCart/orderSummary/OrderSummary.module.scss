@@ -2,7 +2,8 @@
    border: 1px solid rgba(0, 0, 0, 0.1);
    border-radius: 20px;
    padding: 1.25rem 1.5rem;
-   max-height: 404px;
+   display: inline-flex;
+   flex-direction: column;
    h3 {
       font-size: 1.5rem;
       font-weight: 700;
