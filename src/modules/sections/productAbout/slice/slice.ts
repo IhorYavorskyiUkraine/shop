@@ -18,11 +18,9 @@ export const fetchProduct = createAsyncThunk<
    Product, // Type of data to return on success
    FetchProductArgs, // Type of arguments for the thunk
    { rejectValue: string } // Type of error message for rejection
->("productAbout/fetchProduct", async ({ id }, { rejectWithValue }) => {
+>("productAbout/fetchProduct", async ({ link, id }, { rejectWithValue }) => {
    try {
-      const response = await axios.get<Product>(
-         `https://666a97c97013419182cff3dd.mockapi.io/new_arrivals/items/${id}`,
-      );
+      const response = await axios.get<Product>(`${link}${id}`);
 
       if (response.status !== 200) throw new Error("Error!");
 

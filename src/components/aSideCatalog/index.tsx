@@ -5,7 +5,6 @@ import { RangeSlider } from "../../ui/rangeSlider";
 import { Button } from "../../ui/button/Button";
 
 import { RootState } from "../../store";
-import { Product } from "../../modules/sections/newArrivals/slice/types";
 
 import {
    setActiveIndex,
@@ -22,11 +21,7 @@ import arrow from "/images/productAbout/arrow.svg";
 import styles from "./ASideCatalog.module.scss";
 import { setFilters } from "../../modules/sections/categories/slice/slice";
 
-type Props = {
-   listToRender: Product[];
-};
-
-export const ASideCatalog: React.FC<Props> = ({ listToRender }) => {
+export const ASideCatalog: React.FC = () => {
    const {
       range,
       activeTabs,
@@ -38,6 +33,10 @@ export const ASideCatalog: React.FC<Props> = ({ listToRender }) => {
       category,
    } = useSelector((state: RootState) => state.aSideCatalogSlice);
 
+   const { categoriesList } = useSelector(
+      (state: RootState) => state.categoriesSlice,
+   );
+
    const dispatch = useDispatch();
 
    const categories = ["T-shirts", "Shorts", "Shirts", "Hoodie", "Jeans"];
@@ -45,7 +44,7 @@ export const ASideCatalog: React.FC<Props> = ({ listToRender }) => {
    const dressStyles = ["Casual", "Formal", "Party", "Gym"];
    const colorsList = [
       ...new Set(
-         listToRender?.flatMap(product =>
+         categoriesList?.flatMap(product =>
             product.options.colors.map(option => option.color),
          ),
       ),

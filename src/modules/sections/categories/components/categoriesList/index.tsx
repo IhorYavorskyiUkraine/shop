@@ -1,22 +1,34 @@
 import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useAppDispatch } from "../../../../../store";
+import { useState, useEffect } from "react";
+
+import { Card } from "../../../../../components/card";
 
 import { Product } from "../../../newArrivals/slice/types";
 import { RootState } from "../../../../../store";
-import { Card } from "../../../../../components/card";
+import { fetchCategoriesList } from "../../slice/slice";
 
 import styles from "./CategoriesList.module.scss";
+import { Skeleton } from "../../../../../components/skeleton";
 
 type Props = {
-   listToRender: Product[];
+   link: string;
 };
 
-export const CategoriesList: React.FC<Props> = ({ listToRender }) => {
-   const { filters } = useSelector((state: RootState) => state.CategoriesSlice);
+export const CategoriesList: React.FC<Props> = ({ link }) => {
+   const { filters, categoriesList, status } = useSelector(
+      (state: RootState) => state.categoriesSlice,
+   );
 
    const [sort, setSort] = useState("Popularity");
 
-   const filteredList = listToRender.filter((product: Product) => {
+   const dispatch = useAppDispatch();
+
+   useEffect(() => {
+      dispatch(fetchCategoriesList({ link }));
+   }, []);
+
+   const filteredList = categoriesList.filter((product: Product) => {
       const isCategoryMatch =
          filters.category === "" || product.category === filters.category;
 
@@ -55,7 +67,7 @@ export const CategoriesList: React.FC<Props> = ({ listToRender }) => {
          <div className={styles.top}>
             <h2>{filters.dressStyle === "" ? "All" : filters.dressStyle}</h2>
             <div className={styles.sort}>
-               <p>Showing 1-10 of {listToRender.length} Products</p>
+               <p>Showing 1-10 of {categoriesList.length} Products</p>
                <div>
                   <p>Sort by:</p>
                   <select value={sort} onChange={handleSortChange}>
@@ -67,9 +79,17 @@ export const CategoriesList: React.FC<Props> = ({ listToRender }) => {
             </div>
          </div>
          <div className={styles.list}>
-            {sortedList.map((product: Product, i: number) => (
-               <Card key={product.id} duration={300 + i * 100} {...product} />
-            ))}
+            {status === "loading" ? (
+               <Skeleton length={10} />
+            ) : (
+               sortedList.map((product: Product, i: number) => (
+                  <Card
+                     key={product.id}
+                     duration={300 + i * 100}
+                     {...product}
+                  />
+               ))
+            )}
          </div>
       </div>
    );

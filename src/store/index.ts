@@ -7,9 +7,8 @@ import happyCustomersSlice from "../modules/sections/happyCustomers/slice/slice"
 import productAboutSlice from "../modules/sections/productAbout/slice/slice";
 import youMightAlsoLikeSlice from "../modules/sections/youMightAlsoLike/slice/slice";
 import yourCartSlice from "../modules/sections/yourCart/slice/slice";
-import saleProductsSlice from "../pages/onSalePage/slice/slice";
 import aSideCatalogSlice from "../components/aSideCatalog/slice/slice";
-import CategoriesSlice from "../modules/sections/categories/slice/slice";
+import categoriesSlice from "../modules/sections/categories/slice/slice";
 
 export const store = configureStore({
    reducer: {
@@ -19,9 +18,8 @@ export const store = configureStore({
       productAboutSlice,
       youMightAlsoLikeSlice,
       yourCartSlice,
-      saleProductsSlice,
       aSideCatalogSlice,
-      CategoriesSlice,
+      categoriesSlice,
    },
 });
 

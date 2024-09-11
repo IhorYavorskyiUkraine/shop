@@ -1,25 +1,14 @@
-import { useSelector } from "react-redux";
 import { useEffect } from "react";
-import { useAppDispatch } from "../../store";
 
 import { Popup } from "../../components/popup";
 import { Header } from "../../components/header/Header";
 import { Categories } from "../../modules/sections/categories";
 import { Footer } from "../../components/footer/Footer";
 import { ErrorBoundary } from "react-error-boundary";
-import { RootState } from "../../store";
-import { fetchSaleProducts } from "./slice/slice";
 
 const OnSalePage: React.FC = () => {
-   const { saleProducts } = useSelector(
-      (state: RootState) => state.saleProductsSlice,
-   );
-
-   const dispatch = useAppDispatch();
-
    useEffect(() => {
       window.scrollTo(0, 0);
-      dispatch(fetchSaleProducts());
    }, []);
 
    return (
@@ -34,7 +23,7 @@ const OnSalePage: React.FC = () => {
                />
             }
          >
-            <Categories listToRender={saleProducts} />
+            <Categories link="https://66bc550724da2de7ff6a0f6d.mockapi.io/on_sale/items" />
          </ErrorBoundary>
          <Footer />
       </div>
